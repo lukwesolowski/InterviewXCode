@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using MedWeb.DA.Interfaces;
+using MedWeb.DA.Repositories;
 
 namespace MedWeb.Web.App_Start
 {
@@ -9,6 +11,7 @@ namespace MedWeb.Web.App_Start
             var bulider = new ContainerBuilder();
 
             // Rejestracja kontenera
+            bulider.RegisterType<PatientRepository>().As<IPatientRepository>();
 
             MvcApplication.DepedencyResolver = bulider.Build();
         }

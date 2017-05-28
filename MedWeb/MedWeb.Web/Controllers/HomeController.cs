@@ -1,9 +1,21 @@
-﻿using System.Web.Mvc;
+﻿using Autofac;
+using MedWeb.DA.Interfaces;
+using System.Web.Mvc;
 
 namespace MedWeb.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IPatientRepository _patientRepository;
+
+        public HomeController()
+        {
+            using (ILifetimeScope scope = MvcApplication.DepedencyResolver.BeginLifetimeScope())
+            {
+                _patientRepository = scope.Resolve<IPatientRepository>();
+            }
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -11,7 +23,8 @@ namespace MedWeb.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            string countOfPatient = _patientRepository.GetAllPatients().Count.ToString();
+            ViewBag.Message = "Liczba pacjentow " + countOfPatient;
 
             return View();
         }
