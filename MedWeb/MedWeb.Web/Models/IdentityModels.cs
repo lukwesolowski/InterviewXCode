@@ -22,6 +22,8 @@ namespace MedWeb.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<Patient> Patient { get; set; }
+        public virtual DbSet<Doctor> Doctor { get; set; }
+        public virtual DbSet<Specialization> Specialization { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -33,6 +35,11 @@ namespace MedWeb.Web.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Patient>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<Specialization>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<Doctor>().HasKey(x => x.Id);
+            modelBuilder.Entity<Doctor>().HasRequired(x => x.Specialization).WithMany().WillCascadeOnDelete(false);
         }
 
         public static ApplicationDbContext Create()
