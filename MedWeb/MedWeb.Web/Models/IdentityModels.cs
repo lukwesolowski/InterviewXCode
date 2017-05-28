@@ -2,6 +2,8 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using MedWeb.DA.Tables;
 
 namespace MedWeb.Web.Models
 {
@@ -19,9 +21,18 @@ namespace MedWeb.Web.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public virtual DbSet<Patient> Patient { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Patient>().HasKey(x => x.Id);
         }
 
         public static ApplicationDbContext Create()
