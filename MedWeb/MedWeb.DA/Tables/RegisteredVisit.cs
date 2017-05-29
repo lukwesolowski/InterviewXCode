@@ -9,15 +9,16 @@ namespace MedWeb.DA.Tables
         [Key]
         public int Id { get; set; }
 
-        [Key]
-        public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
+        [Key, ForeignKey(nameof(Patient))]
+        public int PatientId { get; set; }
+
+        [Key, ForeignKey(nameof(Doctor))]
+        public int DoctorId { get; set; }
+
+        public DateTime DateTime { get; set; }
         public string Complaint { get; set; }
 
-        [ForeignKey(nameof(Patient))]
         public virtual Patient Patient { get; set; }
-
-        [ForeignKey(nameof(Doctor))]
         public virtual Doctor Doctor { get; set; }
     }
 }

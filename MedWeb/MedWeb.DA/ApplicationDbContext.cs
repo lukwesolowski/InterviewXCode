@@ -23,6 +23,7 @@ namespace MedWeb.DA
         public virtual DbSet<Patient> Patient { get; set; }
         public virtual DbSet<Doctor> Doctor { get; set; }
         public virtual DbSet<Specialization> Specialization { get; set; }
+        public virtual DbSet<RegisteredVisit> RegisteredVisit { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -34,11 +35,16 @@ namespace MedWeb.DA
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Patient>().HasKey(x => x.Id);
+            modelBuilder.Entity<Patient>().HasOptional(x => x.RegisteredVisit);
 
             modelBuilder.Entity<Specialization>().HasKey(x => x.Id);
 
             modelBuilder.Entity<Doctor>().HasKey(x => x.Id);
             modelBuilder.Entity<Doctor>().HasRequired(x => x.Specialization).WithMany().WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RegisteredVisit>().HasKey(x => x.Id);
+            modelBuilder.Entity<RegisteredVisit>().HasRequired(x => x.Patient).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<RegisteredVisit>().HasRequired(x => x.Doctor).WithMany().WillCascadeOnDelete(false);
         }
 
         public static ApplicationDbContext Create()

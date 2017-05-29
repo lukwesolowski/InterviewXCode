@@ -13,6 +13,7 @@ namespace MedWeb.Web.App_Start
             // Rejestracja kontenera
             builder.RegisterType<PatientRepository>().As<IPatientRepository>();
             builder.RegisterType<DoctorRepository>().As<IDoctorRepository>();
+            builder.RegisterType<RegisteredVisitRepository>().As<IRegisteredVisitRepository>();
 
             MvcApplication.DepedencyResolver = builder.Build();
         }

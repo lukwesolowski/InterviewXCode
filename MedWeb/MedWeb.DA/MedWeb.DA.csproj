@@ -56,10 +56,12 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Interfaces\IDoctorRepository.cs" />
     <Compile Include="Interfaces\IPatientRepository.cs" />
+    <Compile Include="Interfaces\IRegisteredVisitRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\PatientRepository.cs" />
+    <Compile Include="Repositories\RegisteredVisitRepository.cs" />
     <Compile Include="Tables\Doctor.cs" />
     <Compile Include="Tables\Patient.cs" />
     <Compile Include="Tables\RegisteredVisit.cs" />
