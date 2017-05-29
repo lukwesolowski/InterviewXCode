@@ -62,6 +62,7 @@
     <Compile Include="Repositories\PatientRepository.cs" />
     <Compile Include="Tables\Doctor.cs" />
     <Compile Include="Tables\Patient.cs" />
+    <Compile Include="Tables\RegisteredVisit.cs" />
     <Compile Include="Tables\Specialization.cs" />
   </ItemGroup>
   <ItemGroup>
