@@ -10,6 +10,8 @@ namespace MedWeb.DA.Interfaces
 
         Patient GetPatientById(int id);
 
+        Patient GetPatientByPesel(int pesel);
+
         Patient GetPatientByLastName(string lastName);
     }
 }

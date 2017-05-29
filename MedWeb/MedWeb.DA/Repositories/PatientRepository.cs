@@ -32,7 +32,7 @@ namespace MedWeb.DA.Repositories
             return patient;
         }
 
-        public Patient GetPatientPesel(int pesel)
+        public Patient GetPatientByPesel(int pesel)
         {
             Patient patient = _dbContext
                 .Patient
