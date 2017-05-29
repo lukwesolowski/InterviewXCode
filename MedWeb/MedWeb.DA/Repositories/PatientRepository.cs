@@ -44,7 +44,12 @@ namespace MedWeb.DA.Repositories
 
         public Patient GetPatientByLastName(string lastName)
         {
-            throw new NotImplementedException();
+            Patient patient = _dbContext
+                .Patient
+                .Where(x => x.Equals(lastName.ToLower()))
+                .FirstOrDefault();
+
+            return patient;
         }
     }
 }
