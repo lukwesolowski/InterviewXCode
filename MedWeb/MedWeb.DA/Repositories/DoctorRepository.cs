@@ -25,7 +25,7 @@ namespace MedWeb.DA.Repositories
         {
             Doctor doctor = _dbContext
                 .Doctor
-                .Where(x => x.Equals(id))
+                .Where(x => x.Id.Equals(id))
                 .FirstOrDefault();
 
             return doctor;
@@ -35,7 +35,7 @@ namespace MedWeb.DA.Repositories
         {
             Doctor doctor = _dbContext
                 .Doctor
-                .Where(x => x.Equals(lastName.ToLower()))
+                .Where(x => x.LastName.Equals(lastName.ToLower()))
                 .FirstOrDefault();
 
             return doctor;
@@ -45,7 +45,7 @@ namespace MedWeb.DA.Repositories
         {
             return _dbContext
                 .Doctor
-                .Where(x => x.Equals(specName.ToLower()))
+                .Where(x => x.Specialization.Name.Equals(specName.ToLower()))
                 .ToList();
         }
     }

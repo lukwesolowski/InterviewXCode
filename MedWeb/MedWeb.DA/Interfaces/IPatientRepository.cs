@@ -1,5 +1,4 @@
 ﻿using MedWeb.DA.Tables;
-using System;
 using System.Collections.Generic;
 
 namespace MedWeb.DA.Interfaces
