@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedWeb.DA.Tables
 {
-    class RegisteredVisit
+    public class RegisteredVisit
     {
         [Key]
         public int Id { get; set; }

@@ -8,12 +8,13 @@ namespace MedWeb.Web.App_Start
     {
         public static void RegisterDepedency()
         {
-            var bulider = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             // Rejestracja kontenera
-            bulider.RegisterType<PatientRepository>().As<IPatientRepository>();
+            builder.RegisterType<PatientRepository>().As<IPatientRepository>();
+            builder.RegisterType<DoctorRepository>().As<IDoctorRepository>();
 
-            MvcApplication.DepedencyResolver = bulider.Build();
+            MvcApplication.DepedencyResolver = builder.Build();
         }
     }
 }
