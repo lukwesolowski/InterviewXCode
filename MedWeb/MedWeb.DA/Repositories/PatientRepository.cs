@@ -32,6 +32,16 @@ namespace MedWeb.DA.Repositories
             return patient;
         }
 
+        public Patient GetPatientPesel(int pesel)
+        {
+            Patient patient = _dbContext
+                .Patient
+                .Where(x => x.Pesel.Equals(pesel))
+                .FirstOrDefault();
+
+            return patient;
+        }
+
         public Patient GetPatientByLastName(string lastName)
         {
             throw new NotImplementedException();
