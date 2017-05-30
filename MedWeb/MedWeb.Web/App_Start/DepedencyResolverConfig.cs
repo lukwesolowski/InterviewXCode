@@ -17,6 +17,7 @@ namespace MedWeb.Web.App_Start
             builder.RegisterType<SpecializationRepository>().As<ISpecializationRepository>();
 
             MvcApplication.DepedencyResolver = builder.Build();
+
         }
     }
 }

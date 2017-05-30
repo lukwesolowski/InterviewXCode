@@ -45,6 +45,24 @@ namespace MedWeb.DA.Repositories
                 .FirstOrDefault();
         }
 
+        public void AddPatient(Patient PatientModel)
+        {
+            Patient newPatient = new Patient
+            {
+                Id = PatientModel.Id,
+                FirstName = PatientModel.FirstName,
+                LastName = PatientModel.LastName,
+                BirthDate = PatientModel.BirthDate,
+                City = PatientModel.City,
+                Street = PatientModel.Street,
+                HouseNumber = PatientModel.HouseNumber,
+                ZipCode = PatientModel.ZipCode
+            };
+
+            _dbContext.Patient.Add(newPatient);
+            _dbContext.SaveChanges();
+        }
+
         public bool UpdatePatient(int patientId, Patient patient)
         {
             try
