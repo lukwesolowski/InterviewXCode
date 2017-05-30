@@ -46,6 +46,19 @@ namespace MedWeb.DA.Repositories
                 .ToList();
         }
 
+        public void AddDoctor(Doctor DoctorModel)
+        {
+            Doctor newDoctor = new Doctor
+            {
+                Id = DoctorModel.Id,
+                FirstName = DoctorModel.FirstName,
+                LastName = DoctorModel.LastName,
+            };
+
+            _dbContext.Doctor.Add(newDoctor);
+            _dbContext.SaveChanges();
+        }
+
         public bool UpdateDoctor(int doctorId, Doctor doctor)
         {
             try
