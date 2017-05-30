@@ -13,6 +13,8 @@ namespace MedWeb.DA.Interfaces
 
         Patient GetPatientByLastName(string lastName);
 
+        void AddPatient(Patient PatientModel);
+
         bool UpdatePatient(int patientId, Patient patient);
 
         bool DeletePatient(int patientId);
