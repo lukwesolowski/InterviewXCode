@@ -1,5 +1,6 @@
 ﻿using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,22 +24,18 @@ namespace MedWeb.DA.Repositories
 
         public Doctor GetDoctorById(int id)
         {
-            Doctor doctor = _dbContext
+            return _dbContext
                 .Doctor
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefault();
-
-            return doctor;
         }
 
         public Doctor GetDoctorByLastName(string lastName)
         {
-            Doctor doctor = _dbContext
+            return _dbContext
                 .Doctor
                 .Where(x => x.LastName.Equals(lastName))
                 .FirstOrDefault();
-
-            return doctor;
         }
 
         public List<Doctor> GetDoctorsBySpecialization(string specName)
@@ -47,6 +44,45 @@ namespace MedWeb.DA.Repositories
                 .Doctor
                 .Where(x => x.Specialization.Name.Equals(specName))
                 .ToList();
+        }
+
+        public bool UpdateDoctor(int doctorId, Doctor doctor)
+        {
+            try
+            {
+                var DoctorModel = _dbContext
+                    .Doctor
+                    .Select(x => x)
+                    .Where(x => x.Id == doctorId)
+                    .FirstOrDefault();
+
+                DoctorModel.FirstName = doctor.FirstName;
+                DoctorModel.LastName = doctor.LastName;
+                DoctorModel.Specialization.Name = doctor.Specialization.Name;
+                DoctorModel.Specialization.InsertTime = DateTime.Now;
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteDoctor(int doctorId)
+        {
+            try
+            {
+                _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(doctorId));
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
