@@ -45,13 +45,10 @@ namespace MedWeb.DA.Repositories
         {
             Patient patient = _dbContext
                 .Patient
-                .Where(x => x.LastName.Equals(lastName.ToLower()))
+                .Where(x => x.LastName.Equals(lastName))
                 .FirstOrDefault();
 
             return patient;
         }
-
-        //Delete Patient by id, by pesel
-        //Update Patient lastName, pesel, birthdate, address
     }
 }
