@@ -1,4 +1,5 @@
 ﻿using MedWeb.DA.Tables;
+using System;
 using System.Collections.Generic;
 
 namespace MedWeb.DA.Interfaces
@@ -16,5 +17,17 @@ namespace MedWeb.DA.Interfaces
         int GetCountOfRegisteredVisits();
 
         int GetCountOfRegisteredVisitsToDoctor(string lastName);
+
+        void AddVisit(int visitId, int patientId, int doctorId);
+
+        bool CheckIfVisitIsOutdated(int visitId);
+
+        bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time);
+
+        bool SetVisitComplaint(int visitId, string complaint);
+
+        bool ChangeVisitDoctorToPatient(int newDoctorId, int patientId);
+
+        bool DeleteVisit(int visitId);
     }
 }

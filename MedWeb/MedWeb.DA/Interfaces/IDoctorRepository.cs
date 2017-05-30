@@ -12,5 +12,9 @@ namespace MedWeb.DA.Interfaces
         Doctor GetDoctorByLastName(string lastName);
 
         List<Doctor> GetDoctorsBySpecialization(string specName);
+
+        bool UpdateDoctor(int doctorId, Doctor doctor);
+
+        bool DeleteDoctor(int doctorId);
     }
 }

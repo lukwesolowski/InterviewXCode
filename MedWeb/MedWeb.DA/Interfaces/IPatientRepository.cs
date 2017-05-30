@@ -12,5 +12,9 @@ namespace MedWeb.DA.Interfaces
         Patient GetPatientByPesel(int pesel);
 
         Patient GetPatientByLastName(string lastName);
+
+        bool UpdatePatient(int patientId, Patient patient);
+
+        bool DeletePatient(int patientId);
     }
 }
