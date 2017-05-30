@@ -1,5 +1,6 @@
 ﻿using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,7 +26,7 @@ namespace MedWeb.DA.Repositories
         {
             return _dbContext
                 .RegisteredVisit
-                .Where(x => x.Patient.LastName.Equals(lastName.ToLower()))
+                .Where(x => x.Patient.LastName.Equals(lastName))
                 .FirstOrDefault();
         }
 
@@ -41,7 +42,7 @@ namespace MedWeb.DA.Repositories
         {
             return _dbContext
                 .RegisteredVisit
-                .Where(x => x.Doctor.LastName.Equals(lastName.ToLower()))
+                .Where(x => x.Doctor.LastName.Equals(lastName))
                 .ToList();
         }
 
@@ -56,22 +57,27 @@ namespace MedWeb.DA.Repositories
         {
             return _dbContext
                 .RegisteredVisit
-                .Where(x => x.Doctor.LastName.Equals(lastName.ToLower()))
+                .Where(x => x.Doctor.LastName.Equals(lastName))
                 .Count();
         }
 
-        public void AddNewVisit(RegisteredVisit registeredVisit)
+        public void AddVisit(int visitId, int patientId, int doctorId)
         {
+            RegisteredVisit registeredVisit = new RegisteredVisit
+            {
+                Id = visitId,
+                PatientId = patientId,
+                DoctorId = doctorId
+            };
+
             _dbContext.RegisteredVisit.Add(registeredVisit);
             _dbContext.SaveChanges();
         }
 
-        public void AddPatientToVisit(int visitId, int patientId)
+        public void DeleteVisit(int visitId)
         {
-            RegisteredVisit registeredPatient = new RegisteredVisit
-            {
-                Id = visitId
-            };
+            _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(visitId));
+            _dbContext.SaveChanges();
         }
     }
 }
