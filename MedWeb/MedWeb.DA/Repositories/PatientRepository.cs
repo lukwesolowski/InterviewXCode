@@ -23,32 +23,69 @@ namespace MedWeb.DA.Repositories
 
         public Patient GetPatientById(int id)
         {
-            Patient patient = _dbContext
+            return _dbContext
                 .Patient
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefault();
-
-            return patient;
         }
 
         public Patient GetPatientByPesel(int pesel)
         {
-            Patient patient = _dbContext
+            return _dbContext
                 .Patient
                 .Where(x => x.Pesel.Equals(pesel))
                 .FirstOrDefault();
-
-            return patient;
         }
 
         public Patient GetPatientByLastName(string lastName)
         {
-            Patient patient = _dbContext
+            return _dbContext
                 .Patient
                 .Where(x => x.LastName.Equals(lastName))
                 .FirstOrDefault();
+        }
 
-            return patient;
+        public bool UpdatePatient(int patientId, Patient patient)
+        {
+            try
+            {
+                var PatientModel = _dbContext
+                    .Patient
+                    .Select(x => x)
+                    .Where(x => x.Id == patientId)
+                    .FirstOrDefault();
+
+                PatientModel.FirstName = patient.FirstName;
+                PatientModel.LastName = patient.LastName;
+                PatientModel.Pesel = patient.Pesel;
+                PatientModel.BirthDate = patient.BirthDate;
+                PatientModel.City = patient.FirstName;
+                PatientModel.Street = patient.FirstName;
+                PatientModel.HouseNumber = patient.FirstName;
+                PatientModel.ZipCode = patient.ZipCode;
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeletePatient(int patientId)
+        {
+            try
+            {
+                _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(patientId));
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
