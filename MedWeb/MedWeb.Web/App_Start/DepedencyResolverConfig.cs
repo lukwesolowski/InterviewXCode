@@ -14,6 +14,7 @@ namespace MedWeb.Web.App_Start
             builder.RegisterType<PatientRepository>().As<IPatientRepository>();
             builder.RegisterType<DoctorRepository>().As<IDoctorRepository>();
             builder.RegisterType<RegisteredVisitRepository>().As<IRegisteredVisitRepository>();
+            builder.RegisterType<SpecializationRepository>().As<ISpecializationRepository>();
 
             MvcApplication.DepedencyResolver = builder.Build();
         }

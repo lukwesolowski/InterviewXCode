@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\IDoctorRepository.cs" />
     <Compile Include="Interfaces\IPatientRepository.cs" />
     <Compile Include="Interfaces\IRegisteredVisitRepository.cs" />
+    <Compile Include="Interfaces\ISpecializationRepository.cs" />
     <Compile Include="Migrations\201705301227241_m1.cs" />
     <Compile Include="Migrations\201705301227241_m1.Designer.cs">
       <DependentUpon>201705301227241_m1.cs</DependentUpon>
@@ -66,6 +67,7 @@
     <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\PatientRepository.cs" />
     <Compile Include="Repositories\RegisteredVisitRepository.cs" />
+    <Compile Include="Repositories\SpecializationRepository.cs" />
     <Compile Include="Tables\Doctor.cs" />
     <Compile Include="Tables\Patient.cs" />
     <Compile Include="Tables\RegisteredVisit.cs" />
