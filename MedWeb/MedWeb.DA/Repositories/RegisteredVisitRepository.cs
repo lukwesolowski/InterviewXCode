@@ -74,10 +74,93 @@ namespace MedWeb.DA.Repositories
             _dbContext.SaveChanges();
         }
 
-        public void DeleteVisit(int visitId)
+        public bool CheckIfVisitIsOutdated(int visitId)
         {
-            _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(visitId));
-            _dbContext.SaveChanges();
+            var VisitModel = _dbContext
+                .RegisteredVisit
+                .Select(x => x)
+                .Where(x => x.Id == visitId)
+                .FirstOrDefault();
+
+            return VisitModel.DateTime < DateTime.Now ? true : false;
+        }
+
+        public bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time)
+        {
+            try
+            {
+                var VisitModel = _dbContext
+                .RegisteredVisit
+                .Select(x => x)
+                .Where(x => x.Id == visitId)
+                .FirstOrDefault();
+
+                VisitModel.DateTime = date + time;
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool SetVisitComplaint(int visitId, string complaint)
+        {
+            try
+            {
+                var VisitModel = _dbContext
+                .RegisteredVisit
+                .Select(x => x)
+                .Where(x => x.Id == visitId)
+                .FirstOrDefault();
+
+                VisitModel.Complaint = complaint;
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ChangeVisitDoctorToPatient(int newDoctorId, int patientId)
+        {
+            try
+            {
+                var VisitModel = _dbContext
+                    .RegisteredVisit
+                    .Select(x => x)
+                    .Where(x => x.PatientId == patientId)
+                    .FirstOrDefault();
+
+                VisitModel.DoctorId = newDoctorId;
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteVisit(int visitId)
+        {
+            try
+            {
+                _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(visitId));
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }            
         }
     }
 }
