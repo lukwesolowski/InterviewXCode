@@ -35,7 +35,6 @@ namespace MedWeb.DA
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Patient>().HasKey(x => x.Id);
-            modelBuilder.Entity<Patient>().HasOptional(x => x.RegisteredVisit);
 
             modelBuilder.Entity<Specialization>().HasKey(x => x.Id);
 

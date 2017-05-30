@@ -18,7 +18,7 @@ namespace MedWeb.DA.Repositories
         {
             return _dbContext
                 .RegisteredVisit
-                .ToList();                
+                .ToList();
         }
 
         public RegisteredVisit GetVisitByPatientLastName(string lastName)
@@ -58,6 +58,20 @@ namespace MedWeb.DA.Repositories
                 .RegisteredVisit
                 .Where(x => x.Doctor.LastName.Equals(lastName.ToLower()))
                 .Count();
+        }
+
+        public void AddNewVisit(RegisteredVisit registeredVisit)
+        {
+            _dbContext.RegisteredVisit.Add(registeredVisit);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddPatientToVisit(int visitId, int patientId)
+        {
+            RegisteredVisit registeredPatient = new RegisteredVisit
+            {
+                Id = visitId
+            };
         }
     }
 }
