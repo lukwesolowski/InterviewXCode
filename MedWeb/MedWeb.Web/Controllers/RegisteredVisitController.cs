@@ -1,13 +1,35 @@
-﻿using System.Web.Mvc;
+﻿using MedWeb.DA.Interfaces;
+using System.Web.Mvc;
 
 namespace MedWeb.Web.Controllers
 {
     public class RegisteredVisitController : Controller
     {
-        // GET: RegisteredVisit
-        public ActionResult Index()
+        private IRegisteredVisitRepository _registeredVisitRepository;
+
+        private RegisteredVisitController(IRegisteredVisitRepository registeredVisitRepository)
         {
-            return View();
+            _registeredVisitRepository = registeredVisitRepository;
+        }
+
+        public ActionResult ListOfRegisteredVisits()
+        {
+            return Content("List Of Registered Visits");
+        }
+
+        public ActionResult ReadOnlyListOfRegisteredVisits()
+        {
+            return Content("Read Only List Registered Visits");
+        }
+
+        public ActionResult DetailsOfRegisteredVisit()
+        {
+            return Content("Details Of Registered Visit");
+        }
+
+        public ActionResult RegisteredVisitForm()
+        {
+            return Content("Registered Visit Form");
         }
     }
 }
