@@ -1,8 +1,14 @@
-﻿
+﻿@model MedWeb.Web.Models.RegisteredVisitViewModel
 @{
     ViewBag.Title = "DetailsOfRegisteredVisit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsOfRegisteredVisit</h2>
+<h2>Wizyta:</h2>
+<ul>
+    <li>Dnia: @Model.DateTime.ToLongDateString()</li>
+    <li>Pacjent: @Model.PatientId</li>
+    <li>Umówiony do: @Model.DoctorId</li>
+    <li>Powód wizyty: @Model.Complaint</li>
+</ul>
 

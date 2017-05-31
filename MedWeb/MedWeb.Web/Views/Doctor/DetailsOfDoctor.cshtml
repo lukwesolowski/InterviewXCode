@@ -4,5 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsOfDoctor</h2>
+<h2>Lekarz: dr.@Model.LastName</h2>
+<ul>
+    <li>Imię lekarza: @Model.FirstName</li>
+    <li>Specjalizacja: @Model.SpecializationId</li>
+</ul>
 

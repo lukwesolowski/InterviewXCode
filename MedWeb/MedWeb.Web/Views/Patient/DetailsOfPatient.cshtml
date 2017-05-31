@@ -4,5 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsOfPatient</h2>
+<h2>Pacjent:</h2>
+<ul>
+    <li>Imię pacjenta: @Model.FirstName</li>
+    <li>Nazwisko pacjenta: @Model.LastName</li>
+    <li>Pesel: @Model.Pesel</li>
+    <li>Data urodzenia: @Model.BirthDate.ToLongDateString()</li>
+    <li>Miejsce zamieszkania: @Model.City @Model.Street @Model.HouseNumber</li>
+    <li>Kod pocztowy: @Model.ZipCode</li>
+</ul>
 
