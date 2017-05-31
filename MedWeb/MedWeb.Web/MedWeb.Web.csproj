@@ -292,6 +292,18 @@
     <Content Include="Views\Specialization\ListOfSpecializations.cshtml" />
     <Content Include="Views\RegisteredVisit\ListOfRegisteredVisits.cshtml" />
     <Content Include="Views\Patient\ListOfPatients.cshtml" />
+    <Content Include="Views\Doctor\DoctorForm.cshtml" />
+    <Content Include="Views\Patient\PatientForm.cshtml" />
+    <Content Include="Views\RegisteredVisit\RegisteredVisitForm.cshtml" />
+    <Content Include="Views\Specialization\SpecializationForm.cshtml" />
+    <Content Include="Views\Doctor\ReadOnlyListOfDoctors.cshtml" />
+    <Content Include="Views\Patient\ReadOnlyListOfPatients.cshtml" />
+    <Content Include="Views\RegisteredVisit\ReadOnlyListOfRegisteredVisits.cshtml" />
+    <Content Include="Views\Specialization\ReadOnlyListOfSpecializations.cshtml" />
+    <Content Include="Views\Doctor\DetailsOfDoctor.cshtml" />
+    <Content Include="Views\Patient\DetailsOfPatient.cshtml" />
+    <Content Include="Views\RegisteredVisit\DetailsOfRegisteredVisit.cshtml" />
+    <Content Include="Views\Specialization\DetailsOfSpecialization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
