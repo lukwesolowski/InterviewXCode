@@ -29,6 +29,7 @@ namespace MedWeb.Web.Models
         public string HouseNumber { get; set; }
 
         [Display(Name = "Kod pocztowy")]
+        [Range(4, 10)]
         public string ZipCode { get; set; }
     }
 }
