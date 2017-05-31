@@ -5,6 +5,8 @@ namespace MedWeb.DA.Interfaces
 {
     public interface ISpecializationRepository
     {
+        IEnumerable<Specialization> Specializations { get; }
+
         List<Specialization> GetAllSpecializations();
 
         Specialization GetSpeacializationById(int id);

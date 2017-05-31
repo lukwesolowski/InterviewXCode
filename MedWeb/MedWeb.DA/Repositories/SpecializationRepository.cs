@@ -14,6 +14,14 @@ namespace MedWeb.DA.Repositories
             _dbContext = ApplicationDbContext.Create();
         }
 
+        public IEnumerable<Specialization> Specializations
+        {
+            get
+            {
+                return _dbContext.Specialization;
+            }
+        }
+
         public List<Specialization> GetAllSpecializations()
         {
             return _dbContext
