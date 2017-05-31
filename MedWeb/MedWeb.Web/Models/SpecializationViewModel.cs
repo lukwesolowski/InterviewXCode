@@ -1,4 +1,6 @@
-﻿namespace MedWeb.Web.Models
+﻿using System;
+
+namespace MedWeb.Web.Models
 {
     public class SpecializationViewModel
     {
