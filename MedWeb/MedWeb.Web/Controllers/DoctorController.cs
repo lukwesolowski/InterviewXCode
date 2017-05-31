@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using MedWeb.DA.Interfaces;
 using MedWeb.Web.Models;
-using MedWeb.DA.Interfaces;
+using System.Web.Mvc;
 
 namespace MedWeb.Web.Controllers
 {
@@ -8,22 +8,30 @@ namespace MedWeb.Web.Controllers
     {
         private IDoctorRepository _doctorRepository;
 
-        DoctorController(IDoctorRepository doctorRepository)
+        private DoctorController(IDoctorRepository doctorRepository)
         {
             _doctorRepository = doctorRepository;
         }
+
         // GET: Doctor
         public ActionResult ListOfDoctors()
         {
-            var doctor = new DoctorViewModel()
-            {
-                FirstName = "Jan",
-                LastName = "Kowalski"
-            };
-
-            return View(doctor);
+            return Content("ListOfDoctors");
         }
 
+        public ActionResult ReadOnlyListOfDoctors()
+        {
+            return Content("ReadOnlyListDoctors");
+        }
 
+        public ActionResult DetailsOfDoctor()
+        {
+            return Content("DetailsOfDoctor");
+        }
+
+        public ActionResult DoctorForm()
+        {
+            return Content("DoctorForm");
+        }
     }
 }
