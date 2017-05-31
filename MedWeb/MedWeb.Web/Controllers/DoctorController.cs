@@ -13,25 +13,24 @@ namespace MedWeb.Web.Controllers
             _doctorRepository = doctorRepository;
         }
 
-        // GET: Doctor
         public ActionResult ListOfDoctors()
         {
-            return Content("ListOfDoctors");
+            return Content("List Of Doctors");
         }
 
         public ActionResult ReadOnlyListOfDoctors()
         {
-            return Content("ReadOnlyListDoctors");
+            return Content("Read Only List Doctors");
         }
 
         public ActionResult DetailsOfDoctor()
         {
-            return Content("DetailsOfDoctor");
+            return Content("Details Of Doctor");
         }
 
         public ActionResult DoctorForm()
         {
-            return Content("DoctorForm");
+            return Content("Doctor Form");
         }
     }
 }
