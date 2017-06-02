@@ -44,9 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\Converter.cs" />
-    <Compile Include="Exceptions\VisitDateIsExsistsException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\VisitDateTimeValidation.cs" />
+    <Compile Include="Validation\DoctorValidation.cs" />
+    <Compile Include="Validation\PatientValidation.cs" />
+    <Compile Include="Validation\VisitValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MedWeb.DA\MedWeb.DA.csproj">
