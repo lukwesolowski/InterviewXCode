@@ -6,6 +6,7 @@ namespace MedWeb.DA.Tables
 {
     public class RegisteredVisit
     {
+        //[Validator(typeof(VisitDateTimeValidation)]
         [Key]
         public int Id { get; set; }
 

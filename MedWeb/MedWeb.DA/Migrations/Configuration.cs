@@ -11,9 +11,11 @@ namespace MedWeb.DA.Migrations
 
         protected override void Seed(MedWeb.DA.ApplicationDbContext context)
         {
-            context.Roles.AddOrUpdate(
-                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "Administrator" }
-                );
+            //context.Roles.AddOrUpdate(
+              //  new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "Administrator" }
+                //);
+
+            context.SaveChanges();
         }
     }
 }
