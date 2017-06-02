@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MedWeb.BO.Exceptions;
 using MedWeb.DA.Tables;
 using System;
 using System.Collections.Generic;
