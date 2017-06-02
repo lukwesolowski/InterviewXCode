@@ -1,8 +1,11 @@
-﻿using System;
+﻿using FluentValidation.Attributes;
+using MedWeb.BO.Validation;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MedWeb.Web.Models
 {
+    [Validator(typeof(PatientValidation))]
     public class PatientViewModel
     {
         public int Id { get; set; }

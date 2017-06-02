@@ -1,8 +1,11 @@
-﻿using MedWeb.DA.Tables;
+﻿using FluentValidation.Attributes;
+using MedWeb.BO.Validation;
+using MedWeb.DA.Tables;
 using System.ComponentModel.DataAnnotations;
 
 namespace MedWeb.Web.Models
 {
+    [Validator(typeof(DoctorValidation))]
     public class DoctorViewModel
     {
         public int Id { get; set; }
