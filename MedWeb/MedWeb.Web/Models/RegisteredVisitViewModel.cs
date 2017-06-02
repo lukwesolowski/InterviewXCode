@@ -1,4 +1,5 @@
-﻿using MedWeb.BO.Validation;
+﻿using FluentValidation.Attributes;
+using MedWeb.BO.Validation;
 using MedWeb.DA.Tables;
 using System;
 using System.ComponentModel.DataAnnotations;
