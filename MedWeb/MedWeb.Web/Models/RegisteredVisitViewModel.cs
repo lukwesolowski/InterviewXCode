@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedWeb.Web.Models
 {
-    [Validator(typeof(VisitDateTimeValidation))]
+    [Validator(typeof(VisitValidation))]
     public class RegisteredVisitViewModel
     {
         public int Id { get; set; }
