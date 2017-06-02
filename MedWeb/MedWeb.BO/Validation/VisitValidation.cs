@@ -20,7 +20,7 @@ namespace MedWeb.BO.Validation
             RuleFor(x => x.Patient)
                 .NotEmpty().WithMessage("Obowiązkowe jest dodanie pacjenta do wizyty");
             RuleFor(x => x.Doctor)
-                .NotEmpty().WithMessage("Obowiązkowe jest dodanie lekarza do wizyty");       
+                .NotEmpty().WithMessage("Obowiązkowe jest dodanie lekarza do wizyty");
         }
 
         public bool IsDateUniqueForSpecificDoctor(RegisteredVisit editedOrNewVisit, DateTime newValue)

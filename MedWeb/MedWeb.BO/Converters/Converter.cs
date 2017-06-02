@@ -4,7 +4,7 @@ namespace MedWeb.BO.Converters
 {
     public class Converter
     {
-        public static T VisitTableToModel<T>(RegisteredVisit registerVisit) 
+        public static T VisitTableToModel<T>(RegisteredVisit registerVisit)
             where T : class
         {
             var convertedObject = new

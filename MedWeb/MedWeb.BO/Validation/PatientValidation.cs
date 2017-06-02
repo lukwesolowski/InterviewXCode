@@ -32,7 +32,7 @@ namespace MedWeb.BO.Validation
             RuleFor(x => x.HouseNumber)
                 .NotEmpty().WithMessage("Podanie numeru domu jest wymagane");
             RuleFor(x => x.ZipCode)
-                .NotEmpty().WithMessage("Podanie kodu pocztowego jest wymagane");      
+                .NotEmpty().WithMessage("Podanie kodu pocztowego jest wymagane");
         }
     }
 }

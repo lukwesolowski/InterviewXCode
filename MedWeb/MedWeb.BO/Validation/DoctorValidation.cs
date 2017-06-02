@@ -1,6 +1,6 @@
-﻿using MedWeb.DA.Tables;
+﻿using FluentValidation;
+using MedWeb.DA.Tables;
 using System.Collections.Generic;
-using FluentValidation;
 
 namespace MedWeb.BO.Validation
 {
