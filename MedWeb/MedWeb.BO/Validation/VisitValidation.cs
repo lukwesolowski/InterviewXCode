@@ -26,7 +26,7 @@ namespace MedWeb.BO.Validation
         public bool IsDateUniqueForSpecificDoctor(RegisteredVisit editedOrNewVisit, DateTime newValue)
         {
             return _registeredVisits.All(x =>
-                x.DateTime != newValue || x.Doctor.Equals(editedOrNewVisit.Doctor));       
+                x.DateTime != newValue || x.Doctor.Equals(editedOrNewVisit.Doctor));
         }
     }
 }

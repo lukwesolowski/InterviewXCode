@@ -6,8 +6,6 @@ namespace MedWeb.DA.Interfaces
 {
     public interface IRegisteredVisitRepository
     {
-        IEnumerable<RegisteredVisit> RegisteredVisits { get; }
-
         List<RegisteredVisit> GetAllRegisteredVisits();
 
         RegisteredVisit GetVisitByPatientLastName(string lastName);

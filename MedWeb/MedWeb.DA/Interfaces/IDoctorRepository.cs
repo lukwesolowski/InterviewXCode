@@ -5,8 +5,6 @@ namespace MedWeb.DA.Interfaces
 {
     public interface IDoctorRepository
     {
-        IEnumerable<Doctor> Doctors { get; }
-
         List<Doctor> GetAllDoctors();
 
         Doctor GetDoctorById(int id);

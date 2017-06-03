@@ -15,14 +15,6 @@ namespace MedWeb.DA.Repositories
             _dbContext = ApplicationDbContext.Create();
         }
 
-        public IEnumerable<Doctor> Doctors
-        {
-            get
-            {
-                return _dbContext.Doctor;
-            }
-        }
-
         public List<Doctor> GetAllDoctors()
         {
             return _dbContext

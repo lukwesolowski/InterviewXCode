@@ -4,6 +4,7 @@ using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
 using MedWeb.Web.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MedWeb.Web.Controllers
@@ -11,6 +12,7 @@ namespace MedWeb.Web.Controllers
     public class VisitController : Controller
     {
         private IRegisteredVisitRepository _registeredVisitRepository;
+        public int PageSize = 8;
 
         public VisitController()
         {
@@ -21,7 +23,7 @@ namespace MedWeb.Web.Controllers
         }
 
         // GET: Visit
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
             var viewModel = new List<RegisteredVisitViewModel>();
@@ -30,9 +32,9 @@ namespace MedWeb.Web.Controllers
             {
                 RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
                 viewModel.Add(visit);
-            });
+            });          
 
-            return View(viewModel);
+            return View(viewModel.ToList().OrderBy(x => x.Id).Skip(page - 1) * PageSize).Take(PageSize));
         }
 
         public ActionResult Complaints()
