@@ -32,9 +32,9 @@ namespace MedWeb.Web.Controllers
             {
                 RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
                 viewModel.Add(visit);
-            });          
+            });
 
-            return View(viewModel.ToList().OrderBy(x => x.Id).Skip(page - 1) * PageSize).Take(PageSize));
+            return View(viewModel);
         }
 
         public ActionResult Complaints()
