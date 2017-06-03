@@ -34,7 +34,10 @@ namespace MedWeb.Web.Controllers
                 viewModel.Add(visit);
             });
 
-            return View(viewModel);
+            return View(viewModel
+                .OrderBy(x => x.Id)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize));
         }
 
         public ActionResult Complaints()
