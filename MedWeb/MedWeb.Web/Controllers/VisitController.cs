@@ -12,6 +12,7 @@ namespace MedWeb.Web.Controllers
     public class VisitController : Controller
     {
         private IRegisteredVisitRepository _registeredVisitRepository;
+        private ISpecializationRepository _specializationRepository;
         public int PageSize = 8;
 
         public VisitController()
@@ -19,6 +20,7 @@ namespace MedWeb.Web.Controllers
             using (ILifetimeScope scope = MvcApplication.DepedencyResolver.BeginLifetimeScope())
             {
                 _registeredVisitRepository = scope.Resolve<IRegisteredVisitRepository>();
+                _specializationRepository = scope.Resolve<ISpecializationRepository>();
             }
         }
 
@@ -55,12 +57,25 @@ namespace MedWeb.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         [Authorize(Roles = "Administator")]
-        public ActionResult AddVisit()
+        public ActionResult AddVisit(string Prefix)
         {
-            return View();
-        }
+            List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
+            var viewModel = new List<RegisteredVisitViewModel>();
 
+            visitsFromDb.ForEach(x =>
+            {
+                RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
+                viewModel.Add(visit);
+            });
+
+            var doctorLastName = (from d in viewModel
+                            where d.Doctor.LastName.StartsWith(Prefix)
+                            select new { d.Doctor.LastName });
+            return Json(doctorLastName, JsonRequestBehavior.AllowGet);
+        }
+        
         [Authorize(Roles = "Administrator")]
         public ActionResult EditVisit()
         {

@@ -1,6 +1,40 @@
-﻿@{
-    ViewBag.Title = "AddVisit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model MedWeb.Web.Models.RegisteredVisitViewModel
 
-<h2>Narzędzie do dodawania kolejnej wizyty do systemu</h2>
+<h2>Narzędzie do dodawania wizyty do systemu</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.EditorFor(x => x.Doctor.LastName , new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+        </div>
+    }  
+    <script>
+        $(document).ready(function () {
+           $("#doctorLastName").autocomplete({
+               source: function(request,response) {
+                   $.ajax({
+                       url: "/Home/Index/AddVisit",
+                       type: "POST",
+                       dataType: "json",
+                       data: { Prefix: request.term },
+                       success: function (data) {
+                           response($.map(data, function (item) {
+                               return { label: item.Doctor.LastName, value: item.Doctor.LastName };
+                           }))
+
+                       }
+                   })
+               },
+               messages: {
+                   noResults: "", results: ""
+               }
+           });
+       })
+    </script>
