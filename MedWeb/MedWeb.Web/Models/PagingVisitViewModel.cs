@@ -4,7 +4,14 @@ namespace MedWeb.Web.Models
 {
     public class PagingVisitViewModel
     {
-        public List<RegisteredVisitViewModel> RegisteredVisits { get; set; }
+        public List<RegisteredVisitViewModel> RegisteredVisitsModel { get; set; }
         public PagingInfoModel PagingInfoModel { get; set; }
+
+        public PagingVisitViewModel(List<RegisteredVisitViewModel> _RegisteredVisitsModel, 
+            PagingInfoModel _PagingInfoModel)
+        {
+            RegisteredVisitsModel = _RegisteredVisitsModel;
+            PagingInfoModel = _PagingInfoModel;
+        }
     }
 }

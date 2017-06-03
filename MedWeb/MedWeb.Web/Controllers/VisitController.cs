@@ -38,14 +38,16 @@ namespace MedWeb.Web.Controllers
             var currentPageInfo = new PageInfo(viewModel.Count(), page);
             var viewPagingModel = new PagingInfoModel
             {
-                Items = (List<string>)viewModel
+                Items = viewModel
                 .Skip((currentPageInfo.CurrentPage - 1) * currentPageInfo.PageSize)
                 .Take(currentPageInfo.PageSize),
 
                 PageInfo = currentPageInfo
             };
 
-            return View(viewPagingModel);
+            var pagingVisitModel = new PagingVisitViewModel(viewModel, viewPagingModel);
+
+            return View(pagingVisitModel);
         }
 
         public ActionResult Complaints()
