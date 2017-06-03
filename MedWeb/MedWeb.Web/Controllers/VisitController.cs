@@ -23,7 +23,8 @@ namespace MedWeb.Web.Controllers
         }
 
         // GET: Visit
-        public ActionResult Index(int page = 1)
+        [HttpGet]
+        public ActionResult Index(int? page)
         {
             List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
             var viewModel = new List<RegisteredVisitViewModel>();
@@ -34,10 +35,17 @@ namespace MedWeb.Web.Controllers
                 viewModel.Add(visit);
             });
 
-            return View(viewModel
-                .OrderBy(x => x.Id)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize));
+            var currentPageInfo = new PageInfo(viewModel.Count(), page);
+            var viewPagingModel = new PagingInfoModel
+            {
+                Items = (List<string>)viewModel
+                .Skip((currentPageInfo.CurrentPage - 1) * currentPageInfo.PageSize)
+                .Take(currentPageInfo.PageSize),
+
+                PageInfo = currentPageInfo
+            };
+
+            return View(viewPagingModel);
         }
 
         public ActionResult Complaints()
