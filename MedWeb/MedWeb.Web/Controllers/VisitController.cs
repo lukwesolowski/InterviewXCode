@@ -52,7 +52,7 @@ namespace MedWeb.Web.Controllers
             return View(pagingVisitModel);
         }
 
-        public ActionResult Details()
+        public ActionResult Details(int id)
         {
             return View();
         }
@@ -71,21 +71,31 @@ namespace MedWeb.Web.Controllers
             });
 
             var doctorLastName = (from d in viewModel
-                            where d.Doctor.LastName.StartsWith(Prefix)
-                            select new { d.Doctor.LastName });
+                                  where d.Doctor.LastName.StartsWith(Prefix)
+                                  select new { d.Doctor.LastName });
             return Json(doctorLastName, JsonRequestBehavior.AllowGet);
-        }
-        
-        [Authorize(Roles = "Administrator")]
-        public ActionResult EditVisit()
-        {
-            return View();
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteVisit()
+        public ActionResult EditVisit()
         {
-            return View();
+            List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
+            var viewModel = new List<RegisteredVisitViewModel>();
+
+            visitsFromDb.ForEach(x =>
+            {
+                RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
+                viewModel.Add(visit);
+            });
+
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteVisit(int id)
+        {
+            return View(_registeredVisitRepository.DeleteVisit(id));
         }
     }
 }

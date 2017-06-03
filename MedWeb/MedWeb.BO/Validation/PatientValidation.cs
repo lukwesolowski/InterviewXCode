@@ -41,7 +41,7 @@ namespace MedWeb.BO.Validation
         public bool IsAtleast16YearsOld(DateTime dateTime)
         {
             int sixteenYearsOld = 16;
-            return dateTime.Year >= sixteenYearsOld ? true : false;  
+            return dateTime.Year >= sixteenYearsOld ? true : false;
         }
 
         public bool IsYoungerThanHundred(DateTime dateTime)
