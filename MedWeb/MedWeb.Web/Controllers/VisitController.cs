@@ -50,7 +50,7 @@ namespace MedWeb.Web.Controllers
             return View(pagingVisitModel);
         }
 
-        public ActionResult Complaints()
+        public ActionResult Details()
         {
             return View();
         }

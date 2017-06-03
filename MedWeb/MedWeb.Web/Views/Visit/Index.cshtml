@@ -14,6 +14,12 @@
                     <th>Pacjent</th>
                     <th>Data</th>
                     <th>Objaw</th>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <th>Szczegoły</th>
+                        <th>Edycja</th>
+                        <th>Usuwanie</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -24,10 +30,17 @@
                         <td>@item.Patient.FirstName @item.Patient.LastName</td>
                         <td>@item.DateTime.ToShortTimeString()</td>
                         <td>@item.Complaint</td>
+                        @if( User.IsInRole("Administrator"))
+                        {
+                            <td><a href="@Url.Action("Details")" class="btn btn-primary">Wyświetl</a></td>
+                            <td><a href="@Url.Action("EditVisit")" class="btn btn-primary">Edytuj</a></td>
+                            <td><a href="@Url.Action("DeleteVisit")" class="btn btn-primary">Usuń</a></td>
+                        }
                     </tr>
                 }
             </tbody>
         </table>
+
         if (Model.PagingInfoModel.PageInfo.EndPage > 1)
         {
             <ul class="pagination">
