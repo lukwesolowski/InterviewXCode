@@ -28,13 +28,13 @@
                     <tr>
                         <td>@item.Doctor.FirstName @item.Doctor.LastName</td>
                         <td>@item.Patient.FirstName @item.Patient.LastName</td>
-                        <td>@item.DateTime.ToShortTimeString()</td>
+                        <td>@item.DateTime.ToString("dd-MM-yyyy hh:mm")</td>
                         <td>@item.Complaint</td>
-                        @if( User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator"))
                         {
-                            <td><a href="@Url.Action("Details")" class="btn btn-primary">Wyświetl</a></td>
-                            <td><a href="@Url.Action("EditVisit")" class="btn btn-primary">Edytuj</a></td>
-                            <td><a href="@Url.Action("DeleteVisit")" class="btn btn-primary">Usuń</a></td>
+                            <td><a href="@Url.Action("Details", new { patientId = item.Patient.Id })" class="btn btn-primary">Wyświetl</a></td>
+                            <td><a href="@Url.Action("EditVisit", new { visitId = item.Id })" class="btn btn-primary">Edytuj</a></td>
+                            <td><a href="@Url.Action("DeleteVisit", new {visitId = item.Id })" class="btn btn-primary">Usuń</a></td>
                         }
                     </tr>
                 }
@@ -74,7 +74,7 @@
 
     }
 
-    @if (User.IsInRole("Administartor"))
+    @if (true)
     {
         <p>Czy dodać wizytę?</p>
         <a href="@Url.Action("AddVisit")" class="btn btn-primary">Dodaj wizytę</a>

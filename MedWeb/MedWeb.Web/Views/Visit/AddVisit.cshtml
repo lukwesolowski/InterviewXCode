@@ -1,38 +1,30 @@
-﻿@model MedWeb.Web.Models.RegisteredVisitViewModel
+﻿@model MedWeb.Web.Models.AddRegisteredVisitViewModel
 
 <h2>Narzędzie do dodawania wizyty do systemu</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddVisit", "Visit", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <hr />
-        <div class="form-group">
-            <div class="col-md-12">
-                @Html.EditorFor(x => x.Doctor.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
+
+    <div class="form-group">
+        @Html.Label("Doktorzy", new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.DropDownListFor(x => x.SelectedDoctorId, Model.DoctorList, new { @class = "form-control" })
         </div>
     </div>
-}
-<script>
-    $(document).ready(function () {
-        $("#doctorLastName").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Home/Index/AddVisit",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Doctor.LastName, value: item.Doctor.LastName };
-                        }))
 
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-    })
-</script>
+        <div class="form-group">
+            @Html.Label("Pacjenci", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(x => x.SelectedPatientId, Model.PatientList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Complaint, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(x => x.Complaint, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Dodaj wizytę</button>
+}

@@ -13,6 +13,8 @@ namespace MedWeb.Web.Controllers
     {
         private IRegisteredVisitRepository _registeredVisitRepository;
         private ISpecializationRepository _specializationRepository;
+        private IPatientRepository _patientRepository;
+        private IDoctorRepository _doctorRepository;
         public int PageSize = 8;
 
         public VisitController()
@@ -21,19 +23,29 @@ namespace MedWeb.Web.Controllers
             {
                 _registeredVisitRepository = scope.Resolve<IRegisteredVisitRepository>();
                 _specializationRepository = scope.Resolve<ISpecializationRepository>();
+                _patientRepository = scope.Resolve<IPatientRepository>();
+                _doctorRepository = scope.Resolve<IDoctorRepository>();
             }
         }
 
         // GET: Visit
         [HttpGet]
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page = 1)
         {
             List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
             var viewModel = new List<RegisteredVisitViewModel>();
 
             visitsFromDb.ForEach(x =>
             {
-                RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
+                RegisteredVisitViewModel visit = new RegisteredVisitViewModel
+                {
+                    Id = x.Id,
+                    Complaint = x.Complaint,
+                    DateTime = x.DateTime,
+                    Doctor = x.Doctor,
+                    Patient = x.Patient
+                };
+
                 viewModel.Add(visit);
             });
 
@@ -52,32 +64,64 @@ namespace MedWeb.Web.Controllers
             return View(pagingVisitModel);
         }
 
-        public ActionResult Details(string patientLastName)
+        public ActionResult Details(int patientId)
         {
-            return View(_registeredVisitRepository.GetVisitByPatientLastName(patientLastName));
+            return View();
+            //return View(_registeredVisitRepository.GetVisitByPatientLastName(patientLastName));
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Administrator")]
+        public ActionResult AddVisit()
+        {
+            List<SelectListItem> doctorsList = new List<SelectListItem>();
+            List<SelectListItem> patientList = new List<SelectListItem>();
+            List<Doctor> doctors = _doctorRepository.GetAllDoctors();
+            List<Patient> patients = _patientRepository.GetAllPatients();
+
+            doctors.ForEach(x =>
+            {
+                var listItem = new SelectListItem
+                {
+                    Text = string.Concat(x.FirstName, " ", x.LastName),
+                    Value = x.Id.ToString()
+                };
+
+                doctorsList.Add(listItem);
+            });
+
+            patients.ForEach(x =>
+            {
+                var listItem = new SelectListItem
+                {
+                    Text = string.Concat(x.FirstName, " ", x.LastName),
+                    Value = x.Id.ToString()
+                };
+
+                patientList.Add(listItem);
+            });
+
+            var viewModel = new AddRegisteredVisitViewModel
+            {
+                PatientList = patientList,
+                DoctorList = doctorsList
+            };
+            
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Roles = "Administator")]
-        public ActionResult AddVisit(string Prefix)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddVisit(RegisteredVisitViewModel viewModel)
         {
-            List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
-            var viewModel = new List<RegisteredVisitViewModel>();
+            //TODO: Obsluga validacji + zapis
 
-            visitsFromDb.ForEach(x =>
-            {
-                RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
-                viewModel.Add(visit);
-            });
-
-            var doctorLastName = (from d in viewModel
-                                  where d.Doctor.LastName.StartsWith(Prefix)
-                                  select new { d.Doctor.LastName });
-            return Json(doctorLastName, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult EditVisit()
+        public ActionResult EditVisit(int visitId)
         {
             List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
             var viewModel = new List<RegisteredVisitViewModel>();
@@ -93,9 +137,9 @@ namespace MedWeb.Web.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteVisit(int id)
+        public ActionResult DeleteVisit(int visitId)
         {
-            return View(_registeredVisitRepository.DeleteVisit(id));
+            return View(_registeredVisitRepository.DeleteVisit(visitId));
         }
     }
 }
