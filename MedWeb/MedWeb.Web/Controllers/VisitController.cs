@@ -56,7 +56,7 @@ namespace MedWeb.Web.Controllers
             var currentPageInfo = new PageInfo(viewModel.Count(), page);
             var viewPagingModel = new PagingInfoModel
             {
-                Items = viewModel
+                ItemsOfVisits = viewModel
                 .Skip((currentPageInfo.CurrentPage - 1) * currentPageInfo.PageSize)
                 .Take(currentPageInfo.PageSize),
 

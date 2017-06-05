@@ -5,7 +5,10 @@ namespace MedWeb.Web.Models
 {
     public class PagingInfoModel
     {
-        public IEnumerable<RegisteredVisitViewModel> Items { get; set; }
+        public IEnumerable<RegisteredVisitViewModel> ItemsOfVisits { get; set; }
+        public IEnumerable<DoctorViewModel> ItemsOfDoctors { get; set; }
+        public IEnumerable<PatientViewModel> ItemsOfPatients { get; set; }
+
         public PageInfo PageInfo { get; set; }
     }
 
