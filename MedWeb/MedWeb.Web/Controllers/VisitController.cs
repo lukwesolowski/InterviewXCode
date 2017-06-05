@@ -183,6 +183,15 @@ namespace MedWeb.Web.Controllers
                 return View(GetAddOrEditRegisteredViewModel());
             }
 
+            if(registeredVisit.Complaint == string.Empty)
+            {
+                errorMessage = "Proszę wypełnić pole dolegliwość";
+                ViewBag.ErrorMessage = errorMessage;
+
+                return View(GetAddOrEditRegisteredViewModel());
+
+            }
+
             _registeredVisitRepository.AddVisit(registeredVisit);
 
             return RedirectToAction("Index");
