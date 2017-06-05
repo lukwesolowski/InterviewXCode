@@ -30,7 +30,7 @@ namespace MedWeb.Web.Controllers
 
         // GET: Visit
         [HttpGet]
-        public ActionResult Index(int? page = 1)
+        public ActionResult Index(int? page = 0)
         {
             List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
             var viewModel = new List<RegisteredVisitViewModel>();
@@ -64,10 +64,20 @@ namespace MedWeb.Web.Controllers
             return View(pagingVisitModel);
         }
 
-        public ActionResult Details(int patientId)
+        [HttpGet]
+        public ActionResult Details(int visitId)
         {
-            return View();
-            //return View(_registeredVisitRepository.GetVisitByPatientLastName(patientLastName));
+            RegisteredVisit currentVisit = _registeredVisitRepository.DetailsOfVisit(visitId);
+            RegisteredVisitViewModel viewModel = new RegisteredVisitViewModel
+            {
+                Id = currentVisit.Id,
+                Complaint = currentVisit.Complaint,
+                DateTime = currentVisit.DateTime,
+                Doctor = currentVisit.Doctor,
+                Patient = currentVisit.Patient
+            };
+           
+            return View(viewModel);
         }
 
         [HttpGet]

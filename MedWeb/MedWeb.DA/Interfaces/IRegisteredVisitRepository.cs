@@ -20,6 +20,8 @@ namespace MedWeb.DA.Interfaces
 
         void AddVisit(RegisteredVisit registerVisit);
 
+        RegisteredVisit DetailsOfVisit(int visitId);
+
         bool CheckIfVisitIsOutdated(int visitId);
 
         bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time);

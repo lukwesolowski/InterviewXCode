@@ -1,6 +1,29 @@
-﻿@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model MedWeb.Web.Models.RegisteredVisitViewModel
 
 <h2>Szczegoły wizyty</h2>
+
+    <h3>Wizyta:</h3>
+
+        <ul>
+            <li>Data wizyty: @Model.DateTime</li>
+            <li>Dolegliwość pacjenta: @Model.Complaint</li>
+        </ul>
+
+    <h3>Pacjent:</h3>
+
+        <ul>
+            <li>@Model.Patient.FirstName</li>
+            <li>@Model.Patient.LastName</li>
+            <li>@Model.Patient.Pesel</li>
+            <li>@Model.Patient.BirthDate</li>
+            <li>@Model.Patient.City</li>
+            <li>@Model.Patient.Street @Model.Patient.HouseNumber @Model.Patient.ZipCode</li>
+        </ul>
+
+    <h3>Lekarz:</h3>
+
+    <ul>
+        <li>@Model.Doctor.FirstName</li>
+        <li>@Model.Doctor.LastName</li>
+        <li>@Model.Doctor.Specialization.Name</li>
+    </ul>

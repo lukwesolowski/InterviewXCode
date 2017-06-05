@@ -67,6 +67,15 @@ namespace MedWeb.DA.Repositories
             _dbContext.SaveChanges();
         }
 
+        public RegisteredVisit DetailsOfVisit(int visitId)
+        {
+            return _dbContext
+                 .RegisteredVisit
+                 .Select(x => x)
+                 .Where(x => x.Id == visitId)
+                 .FirstOrDefault();
+        }
+
         public bool CheckIfVisitIsOutdated(int visitId)
         {
             var VisitModel = _dbContext

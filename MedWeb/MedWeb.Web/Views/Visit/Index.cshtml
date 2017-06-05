@@ -32,7 +32,7 @@
                         <td>@item.Complaint</td>
                         @if (User.IsInRole("Administrator"))
                         {
-                            <td><a href="@Url.Action("Details", new { patientId = item.Patient.Id })" class="btn btn-primary">Wyświetl</a></td>
+                            <td><a href="@Url.Action("Details", new { visitId = item.Id })" class="btn btn-primary">Wyświetl</a></td>
                             <td><a href="@Url.Action("EditVisit", new { visitId = item.Id })" class="btn btn-primary">Edytuj</a></td>
                             <td><a href="@Url.Action("DeleteVisit", new {visitId = item.Id })" class="btn btn-primary">Usuń</a></td>
                         }

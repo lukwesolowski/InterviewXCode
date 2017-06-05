@@ -18,13 +18,13 @@ namespace MedWeb.Web.Models
         public int StartPage { get; set; }
         public int EndPage { get; set; }
 
-        public PageInfo(int numOfItems, int? page, int pageSize = 5)
+        public PageInfo(int numOfItems, int? page, int pageSize = 10)
         {
             var numOfPages = (int)Math.Ceiling((decimal)numOfItems / (decimal)pageSize);
             var currentPage = page != null ? (int)page : 1;
             var startPage = 1;
             var endPage = numOfPages;
-            if (startPage <= 0)
+            if (startPage <= 1)
             {
                 endPage -= (startPage - 1);
                 startPage = 1;
@@ -33,7 +33,9 @@ namespace MedWeb.Web.Models
             {
                 endPage = numOfPages;
                 if (endPage > pageSize)
+                {
                     startPage = endPage - (pageSize - 1);
+                }
             }
 
             NumOfItems = numOfItems;
