@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using MedWeb.BO.Converters;
 using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
 using MedWeb.Web.Models;
@@ -128,7 +127,15 @@ namespace MedWeb.Web.Controllers
 
             visitsFromDb.ForEach(x =>
             {
-                RegisteredVisitViewModel visit = Converter.VisitTableToModel<RegisteredVisitViewModel>(x);
+                RegisteredVisitViewModel visit = new RegisteredVisitViewModel
+                {
+                    Id = x.Id,
+                    Complaint = x.Complaint,
+                    DateTime = x.DateTime,
+                    Doctor = x.Doctor,
+                    Patient = x.Patient
+                };
+
                 viewModel.Add(visit);
             });
 

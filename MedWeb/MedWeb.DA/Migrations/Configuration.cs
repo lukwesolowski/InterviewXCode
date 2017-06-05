@@ -1,6 +1,8 @@
 namespace MedWeb.DA.Migrations
 {
     using MedWeb.DA.Tables;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity.Migrations;
 
@@ -17,16 +19,29 @@ namespace MedWeb.DA.Migrations
             //  new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "Administrator" }
             //);
 
-            var firstSepcializaton = new Specialization { Name = "Spec1", InsertTime = DateTime.Now };
-            var secondSpecialization = new Specialization { Name = "Spec2", InsertTime = DateTime.Now };
+            //var firstSepcializaton = new Specialization { Name = "Spec1", InsertTime = DateTime.Now };
+            //var secondSpecialization = new Specialization { Name = "Spec2", InsertTime = DateTime.Now };
 
-            context.Specialization.Add(firstSepcializaton);
-            context.Specialization.Add(secondSpecialization);
+            //context.Specialization.Add(firstSepcializaton);
+            //context.Specialization.Add(secondSpecialization);
 
-            context.Doctor.AddOrUpdate(
-                new Doctor { FirstName = "Jan", LastName = "Kowalski", SpecializationId = firstSepcializaton.Id },
-                new Doctor { FirstName = "Eugeniusz", LastName = "Poljanowicz", SpecializationId = secondSpecialization.Id }
-                );
+            //context.Doctor.AddOrUpdate(
+            //    new Doctor { FirstName = "Jan", LastName = "Kowalski", SpecializationId = firstSepcializaton.Id },
+            //    new Doctor { FirstName = "Eugeniusz", LastName = "Poljanowicz", SpecializationId = secondSpecialization.Id }
+            //    );
+
+            var store = new UserStore<ApplicationUser>(context);
+            UserManager<ApplicationUser> um = new UserManager<ApplicationUser>(store);
+            ApplicationUser user = new ApplicationUser
+            {
+                Email = "admin@gmail.com",
+                PasswordHash = um.PasswordHasher.HashPassword("!QAZ2wsx"),
+                EmailConfirmed = true,
+                UserName = "admin@gmail.com"
+            };
+
+            um.Create(user);
+            um.AddToRole(user.Id, "Administrator");
 
             context.SaveChanges();
         }
