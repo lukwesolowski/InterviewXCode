@@ -28,7 +28,7 @@ namespace MedWeb.DA.Interfaces
 
         bool CheckIfVisitIsOnWeekend(DateTime datetime);
 
-        bool CheckIfDoctorIsFreeInCurrentTime(int doctorId, DateTime datetime);
+        bool CheckIfDoctorIsFreeInCurrentDate(int doctorId, DateTime datetime);
 
         bool CheckIfVisitIsOutdated(DateTime datetime);
 

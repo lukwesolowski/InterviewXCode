@@ -106,10 +106,10 @@ namespace MedWeb.DA.Repositories
             return currentDay.Contains("Saturday") || currentDay.Contains("Sunday"); 
         }
 
-        public bool CheckIfDoctorIsFreeInCurrentTime(int doctorId, DateTime datetime)
+        public bool CheckIfDoctorIsFreeInCurrentDate(int doctorId, DateTime datetime)
         {
             int maxNumOfVisit = 1;
-            int numOfVisit = 0;
+            int numOfVisits = 0;
 
             _dbContext
                 .RegisteredVisit
@@ -117,11 +117,11 @@ namespace MedWeb.DA.Repositories
                 .ToList()
                 .ForEach(x =>
                 {
-                    if (x.DateTime.ToShortTimeString().Equals(datetime.ToShortTimeString()))
-                        numOfVisit++;
+                    if (x.DateTime.ToString("MM/dd/yyyy hh:mm tt").Equals(datetime.ToString("MM/dd/yyyy hh:mm tt")))
+                        numOfVisits++;
                 });
 
-            return numOfVisit == maxNumOfVisit; 
+            return numOfVisits == maxNumOfVisit; 
         }
 
         public bool CheckIfVisitIsOutdated(DateTime datetime)

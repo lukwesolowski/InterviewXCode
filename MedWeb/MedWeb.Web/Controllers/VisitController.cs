@@ -145,8 +145,7 @@ namespace MedWeb.Web.Controllers
 
             if(_registeredVisitRepository.NumberVisitToDoctorByDay(registeredVisit.DoctorId, registeredVisit.DateTime) >= MaxVisitPerDay)
             {
-                errorMessage = "Ilość wizyt dla doktora " + registeredVisit.Doctor.LastName
-                    + " została przekroczona w dniu " + registeredVisit.DateTime.ToShortDateString();
+                errorMessage = "Ilość wizyt dla bieżącego doktora została przekroczona w dniu " + registeredVisit.DateTime.ToShortDateString();
                 ViewBag.ErrorMessage = errorMessage;
 
                 return View(GetAddRegisteredViewModel());
@@ -168,9 +167,9 @@ namespace MedWeb.Web.Controllers
                 return View(GetAddRegisteredViewModel());
             }
 
-            if(_registeredVisitRepository.CheckIfDoctorIsFreeInCurrentTime(registeredVisit.DoctorId, registeredVisit.DateTime))
+            if(_registeredVisitRepository.CheckIfDoctorIsFreeInCurrentDate(registeredVisit.DoctorId, registeredVisit.DateTime))
             {
-                errorMessage = "Lekarz: " + registeredVisit.Doctor.LastName + " ma już umówioną wizytę na tą porę";
+                errorMessage = "Wybrany lekarz ma już umówioną wizytę na tą porę";
                 ViewBag.ErrorMessage = errorMessage;
 
                 return View(GetAddRegisteredViewModel());
