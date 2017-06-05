@@ -292,7 +292,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Visit\Index.cshtml" />
     <Content Include="Views\Visit\AddVisit.cshtml" />
-    <Content Include="Views\Visit\DeleteVisit.cshtml" />
     <Content Include="Views\Visit\EditVisit.cshtml" />
     <Content Include="Views\Visit\Details.cshtml" />
   </ItemGroup>

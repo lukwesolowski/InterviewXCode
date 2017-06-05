@@ -52,9 +52,9 @@ namespace MedWeb.Web.Controllers
             return View(pagingVisitModel);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string patientLastName)
         {
-            return View();
+            return View(_registeredVisitRepository.GetVisitByPatientLastName(patientLastName));
         }
 
         [HttpPost]
