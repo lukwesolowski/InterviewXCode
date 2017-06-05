@@ -132,13 +132,7 @@ namespace MedWeb.DA.Repositories
 
         public void UpdateVisit(RegisteredVisit visit)
         {
-            var modifyVisit = _dbContext
-                .RegisteredVisit
-                .Select(x => visit)
-                .Where(x => x.Id == visit.Id)
-                .FirstOrDefault();
-
-            _dbContext.Entry(modifyVisit).State = EntityState.Modified;
+            _dbContext.Entry(visit).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
 

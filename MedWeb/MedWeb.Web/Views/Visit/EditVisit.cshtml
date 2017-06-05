@@ -4,42 +4,24 @@
 @using (Html.BeginForm("EditVisit", "Visit", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-group">
-        @Html.Label("Doktorzy", new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.DropDownListFor(x => x.SelectedDoctor, Model.DoctorList, new { @class = "form-control" })
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Obecnie edytowana wizyta</h3>
+        </div>
+        <div class="panel-body">
+            Data wizyty:
+            <div class="panel-footer">@Model.DateTime.ToString("MM/dd/yyyy HH:mm tt")</div>
+            Pacjent:
+            <div class="panel-footer">@Model.Patient.FirstName @Model.Patient.LastName</div>
+            Lekarz
+            <div class="panel-footer">@Model.Doctor.FirstName @Model.Doctor.LastName</div>
+            Dolegliwość
+            <div class="panel-footer">@Model.Complaint</div>
         </div>
     </div>
 
-    <br />
+    <a href="@Url.Action("Details", new { visitId = Model.Id })" class="btn btn-primary">Szczegóły edytowanej wizyty</a>
 
-    <div class="form-group">
-        @Html.Label("Pacjenci", new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.DropDownListFor(x => x.SelectedPatientId, Model.PatientList, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <br />
-
-    <div class="form-group">
-        @Html.LabelFor(x => x.DateTime, new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.EditorFor(x => x.DateTime, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
-
-    <br />
-
-    <div class="form-group">
-        @Html.LabelFor(x => x.Complaint, new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.EditorFor(x => x.Complaint, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
-
-    <br />
-
-    <button type="submit" class="btn btn-success">Dodaj wizytę</button>
+    <button type="submit" class="btn btn-success">Edytuj wizytę</button>
 }

@@ -84,7 +84,7 @@ namespace MedWeb.Web.Controllers
             return View(viewModel);
         }
 
-        private AddorEditRegisteredVisitViewModel GetAddRegisteredViewModel()
+        private AddOrEditRegisteredVisitViewModel GetAddRegisteredViewModel()
         {
             List<SelectListItem> doctorsList = new List<SelectListItem>();
             List<SelectListItem> patientList = new List<SelectListItem>();
@@ -113,7 +113,7 @@ namespace MedWeb.Web.Controllers
                 patientList.Add(listItem);
             });
 
-            var viewModel = new AddorEditRegisteredVisitViewModel
+            var viewModel = new AddOrEditRegisteredVisitViewModel
             {
                 PatientList = patientList,
                 DoctorList = doctorsList,
@@ -133,7 +133,7 @@ namespace MedWeb.Web.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddVisit(AddorEditRegisteredVisitViewModel viewModel)
+        public ActionResult AddVisit(AddOrEditRegisteredVisitViewModel viewModel)
         {
             RegisteredVisit registeredVisit = new RegisteredVisit
             {
@@ -187,6 +187,41 @@ namespace MedWeb.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult EditVisit(RegisteredVisit updatedVisit)
+        {
+            RegisteredVisit registeredVisit = new RegisteredVisit
+            {
+                DoctorId = updatedVisit.Id,
+                PatientId = updatedVisit.Id,
+                DateTime = updatedVisit.DateTime,
+                Complaint = updatedVisit.Complaint
+            };
+
+            _registeredVisitRepository.UpdateVisit(updatedVisit);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult EditVisit(int visitId)
+        {
+            RegisteredVisit currentVisit = _registeredVisitRepository.DetailsOfVisit(visitId);
+            RegisteredVisitViewModel viewModel = new RegisteredVisitViewModel
+            {
+                Id = currentVisit.Id,
+                Complaint = currentVisit.Complaint,
+                DateTime = currentVisit.DateTime,
+                Doctor = currentVisit.Doctor,
+                Patient = currentVisit.Patient
+            };
+
+            return View(viewModel);
+        }
+
 
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteVisit(int visitId)

@@ -30,6 +30,8 @@ namespace MedWeb.DA.Interfaces
 
         bool CheckIfDoctorIsFreeInCurrentDate(int doctorId, DateTime datetime);
 
+        void UpdateVisit(RegisteredVisit visit);
+
         bool CheckIfVisitIsOutdated(DateTime datetime);
 
         bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time);
