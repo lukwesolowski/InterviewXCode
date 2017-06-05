@@ -108,13 +108,20 @@ namespace MedWeb.DA.Repositories
 
         public bool CheckIfDoctorIsFreeInCurrentTime(int doctorId, DateTime datetime)
         {
-            var VisitModel = _dbContext
-                .RegisteredVisit
-                .Select(x => x)
-                .Where(x => x.DoctorId == doctorId)
-                .FirstOrDefault();
+            int maxNumOfVisit = 1;
+            int numOfVisit = 0;
 
-            return VisitModel.DateTime == datetime ? true : false;
+            _dbContext
+                .RegisteredVisit
+                .Where(x => x.DoctorId == doctorId)
+                .ToList()
+                .ForEach(x =>
+                {
+                    if (x.DateTime.ToShortTimeString().Equals(datetime.ToShortTimeString()))
+                        numOfVisit++;
+                });
+
+            return numOfVisit == maxNumOfVisit; 
         }
 
         public bool CheckIfVisitIsOutdated(DateTime datetime)
