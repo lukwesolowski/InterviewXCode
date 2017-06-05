@@ -76,6 +76,23 @@ namespace MedWeb.DA.Repositories
                  .FirstOrDefault();
         }
 
+        public int NumberVisitToDoctorByDay(int doctorId, DateTime datetime)
+        {
+            int doctorVisitCount = 0;
+
+            _dbContext
+                .RegisteredVisit
+                .Where(x => x.DoctorId == doctorId)
+                .ToList()
+                .ForEach(x =>
+                {
+                    if (x.DateTime.Date.Equals(datetime.Date))
+                        doctorVisitCount++;
+                });
+
+            return doctorVisitCount;
+        }
+
         public bool CheckIfVisitIsOutdated(int visitId)
         {
             var VisitModel = _dbContext

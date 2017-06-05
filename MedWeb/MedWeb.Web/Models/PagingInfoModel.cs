@@ -24,26 +24,14 @@ namespace MedWeb.Web.Models
             var currentPage = page != null ? (int)page : 1;
             var startPage = 1;
             var endPage = numOfPages;
-            if (startPage <= 1)
-            {
-                endPage -= (startPage - 1);
-                startPage = 1;
-            }
-            if (endPage > numOfPages)
-            {
-                endPage = numOfPages;
-                if (endPage > pageSize)
-                {
-                    startPage = endPage - (pageSize - 1);
-                }
-            }
+            
 
             NumOfItems = numOfItems;
             CurrentPage = currentPage;
             PageSize = pageSize;
             NumOfPages = numOfPages;
             StartPage = startPage;
-            EndPage = EndPage;
+            EndPage = endPage;
         }
     }
 }

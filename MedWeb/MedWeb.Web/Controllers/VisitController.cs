@@ -17,6 +17,8 @@ namespace MedWeb.Web.Controllers
         private IDoctorRepository _doctorRepository;
         public int PageSize = 8;
 
+        private const int MaxVisitPerDay = 16;
+
         public VisitController()
         {
             using (ILifetimeScope scope = MvcApplication.DepedencyResolver.BeginLifetimeScope())
@@ -80,9 +82,7 @@ namespace MedWeb.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        //[Authorize(Roles = "Administrator")]
-        public ActionResult AddVisit()
+        private AddRegisteredVisitViewModel GetAddRegisteredViewModel()
         {
             List<SelectListItem> doctorsList = new List<SelectListItem>();
             List<SelectListItem> patientList = new List<SelectListItem>();
@@ -117,8 +117,15 @@ namespace MedWeb.Web.Controllers
                 DoctorList = doctorsList,
                 DateTime = DateTime.Now
             };
-            
-            return View(viewModel);
+
+            return viewModel;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddVisit()
+        {
+            return View(GetAddRegisteredViewModel());
         }
 
         [HttpPost]
@@ -133,6 +140,13 @@ namespace MedWeb.Web.Controllers
                 DateTime = viewModel.DateTime,
                 Complaint = viewModel.Complaint
             };
+
+            if(_registeredVisitRepository.NumberVisitToDoctorByDay(registeredVisit.DoctorId, registeredVisit.DateTime) >= MaxVisitPerDay)
+            {
+                ViewBag.ErrorMessage = "Jakis tam alert";
+                return View(GetAddRegisteredViewModel());
+            }
+           
             _registeredVisitRepository.AddVisit(registeredVisit);
 
             return RedirectToAction("Index");

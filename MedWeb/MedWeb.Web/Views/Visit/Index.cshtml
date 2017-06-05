@@ -1,6 +1,8 @@
 ﻿@model MedWeb.Web.Models.PagingVisitViewModel
+
 <div class="container">
     <h2>Wizyty w systemie</h2>
+
     @if (Model.RegisteredVisitsModel.Count == 0)
     {
         <p>Brak wizyt w systemie.</p>
@@ -23,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.RegisteredVisitsModel)
+                @foreach (var item in Model.PagingInfoModel.Items)
                 {
                     <tr>
                         <td>@item.Doctor.FirstName @item.Doctor.LastName</td>
@@ -47,26 +49,26 @@
                 @if (Model.PagingInfoModel.PageInfo.CurrentPage > 1)
                 {
                     <li>
-                        <a href="~/Home/Index">Pierwsza</a>
+                        <a href="~/Visit">Pierwsza</a>
                     </li>
                     <li>
-                        <a href="~/Home/Index?page=@(Model.PagingInfoModel.PageInfo.CurrentPage - 1)">Poprzednia</a>
+                        <a href="~/Visit?page=@(Model.PagingInfoModel.PageInfo.CurrentPage - 1)">Poprzednia</a>
                     </li>
                 }
 
                 @for (var page = Model.PagingInfoModel.PageInfo.StartPage; page <= Model.PagingInfoModel.PageInfo.EndPage; page++)
                 {
                     <li class="@(page == Model.PagingInfoModel.PageInfo.CurrentPage ? "aktywna" : "")">
-                        <a href="~/Home/Index?page=@page">@page</a>
+                        <a href="~/Visit?page=@page">@page</a>
                     </li>}
 
                 @if (Model.PagingInfoModel.PageInfo.CurrentPage < Model.PagingInfoModel.PageInfo.NumOfPages)
                 {
                     <li>
-                        <a href="~/Home/Index?page=@(Model.PagingInfoModel.PageInfo.CurrentPage + 1)">Następna</a>
+                        <a href="~/Visit?page=@(Model.PagingInfoModel.PageInfo.CurrentPage + 1)">Następna</a>
                     </li>
                     <li>
-                        <a href="~/Home/Index?page=@(Model.PagingInfoModel.PageInfo.NumOfPages)">Ostatnia</a>
+                        <a href="~/Visit?page=@(Model.PagingInfoModel.PageInfo.NumOfPages)">Ostatnia</a>
                     </li>
                 }
             </ul>

@@ -22,6 +22,8 @@ namespace MedWeb.DA.Interfaces
 
         RegisteredVisit DetailsOfVisit(int visitId);
 
+        int NumberVisitToDoctorByDay(int doctorId, DateTime datetime);
+
         bool CheckIfVisitIsOutdated(int visitId);
 
         bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time);

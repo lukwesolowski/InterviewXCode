@@ -1,6 +1,15 @@
 ﻿@model MedWeb.Web.Models.AddRegisteredVisitViewModel
+@{
+    string errorMessage = ViewBag.ErrorMessage == null ? string.Empty : ViewBag.ErrorMessage;
+}
 
 <h2>Narzędzie do dodawania wizyty do systemu</h2>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Achtung!</strong> @ViewBag.ErrorMessage
+    </div>
+}
 @using (Html.BeginForm("AddVisit", "Visit", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

@@ -23,10 +23,10 @@ namespace MedWeb.BO.Validation
                 .NotEmpty().WithMessage("Obowiązkowe jest dodanie lekarza do wizyty");
         }
 
-        public bool IsDateUniqueForSpecificDoctor(RegisteredVisit editedOrNewVisit, DateTime newValue)
+        public bool IsDateUniqueForSpecificDoctor(RegisteredVisit editedOrNewVisit, DateTime newDate)
         {
             return _registeredVisits.All(x =>
-                x.DateTime != newValue || x.Doctor.Equals(editedOrNewVisit.Doctor));
+                x.DateTime != newDate || x.Doctor.Equals(editedOrNewVisit.Doctor));
         }
     }
 }
