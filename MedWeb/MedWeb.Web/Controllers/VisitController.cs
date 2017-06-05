@@ -18,6 +18,8 @@ namespace MedWeb.Web.Controllers
         public int PageSize = 8;
 
         private const int MaxVisitPerDay = 16;
+        private const int visitLength = 30;
+        public string errorMessage;
 
         public VisitController()
         {
@@ -143,10 +145,37 @@ namespace MedWeb.Web.Controllers
 
             if(_registeredVisitRepository.NumberVisitToDoctorByDay(registeredVisit.DoctorId, registeredVisit.DateTime) >= MaxVisitPerDay)
             {
-                ViewBag.ErrorMessage = "Jakis tam alert";
+                errorMessage = "Ilość wizyt dla doktora " + registeredVisit.Doctor.LastName
+                    + " została przekroczona w dniu " + registeredVisit.DateTime.ToShortDateString();
+                ViewBag.ErrorMessage = errorMessage;
+
                 return View(GetAddRegisteredViewModel());
             }
-           
+
+            if (_registeredVisitRepository.CheckIfTimeOfVisitIsAllowed(registeredVisit.DateTime, visitLength))
+            {
+                errorMessage = "Długość wizyty trwa: " + visitLength + " minut zatem nie możesz zapisać się na wybraną godzinę";
+                ViewBag.ErrorMessage = errorMessage;
+
+                return View(GetAddRegisteredViewModel());
+            }
+
+            if(_registeredVisitRepository.CheckIfVisitIsOnWeekend(registeredVisit.DateTime))
+            {
+                errorMessage = "Nie można umówić wizyt na weekend";
+                ViewBag.ErrorMessage = errorMessage;
+
+                return View(GetAddRegisteredViewModel());
+            }
+
+            if(_registeredVisitRepository.CheckIfDoctorIsFreeInCurrentTime(registeredVisit.DoctorId, registeredVisit.DateTime))
+            {
+                errorMessage = "Lekarz: " + registeredVisit.Doctor.LastName + " ma już umówioną wizytę na tą porę";
+                ViewBag.ErrorMessage = errorMessage;
+
+                return View(GetAddRegisteredViewModel());
+            }
+
             _registeredVisitRepository.AddVisit(registeredVisit);
 
             return RedirectToAction("Index");

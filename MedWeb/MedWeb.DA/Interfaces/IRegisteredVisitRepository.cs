@@ -24,7 +24,13 @@ namespace MedWeb.DA.Interfaces
 
         int NumberVisitToDoctorByDay(int doctorId, DateTime datetime);
 
-        bool CheckIfVisitIsOutdated(int visitId);
+        bool CheckIfTimeOfVisitIsAllowed(DateTime datetime, int visitLength);
+
+        bool CheckIfVisitIsOnWeekend(DateTime datetime);
+
+        bool CheckIfDoctorIsFreeInCurrentTime(int doctorId, DateTime datetime);
+
+        bool CheckIfVisitIsOutdated(DateTime datetime);
 
         bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time);
 

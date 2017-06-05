@@ -3,6 +3,7 @@ using MedWeb.DA.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MedWeb.DA.Repositories
 {
@@ -93,15 +94,32 @@ namespace MedWeb.DA.Repositories
             return doctorVisitCount;
         }
 
-        public bool CheckIfVisitIsOutdated(int visitId)
+        public bool CheckIfTimeOfVisitIsAllowed(DateTime datetime, int visitLength)
+        {
+            return datetime.Minute % visitLength != 0;
+        }
+
+        public bool CheckIfVisitIsOnWeekend(DateTime datetime)
+        {
+            string currentDay = datetime.DayOfWeek.ToString();
+
+            return currentDay.Contains("Saturday") || currentDay.Contains("Sunday"); 
+        }
+
+        public bool CheckIfDoctorIsFreeInCurrentTime(int doctorId, DateTime datetime)
         {
             var VisitModel = _dbContext
                 .RegisteredVisit
                 .Select(x => x)
-                .Where(x => x.Id == visitId)
+                .Where(x => x.DoctorId == doctorId)
                 .FirstOrDefault();
 
-            return VisitModel.DateTime < DateTime.Now ? true : false;
+            return VisitModel.DateTime == datetime ? true : false;
+        }
+
+        public bool CheckIfVisitIsOutdated(DateTime datetime)
+        {
+            return datetime <= DateTime.Now ? true : false;
         }
 
         public bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time)
