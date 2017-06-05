@@ -176,6 +176,14 @@ namespace MedWeb.Web.Controllers
                 return View(GetAddRegisteredViewModel());
             }
 
+            if(_registeredVisitRepository.CheckIfVisitIsOutdated(registeredVisit.DateTime))
+            {
+                errorMessage = "Data i czas wizyty nie może być starsza od bieżącej";
+                ViewBag.ErrorMessage = errorMessage;
+
+                return View(GetAddRegisteredViewModel());
+            }
+
             _registeredVisitRepository.AddVisit(registeredVisit);
 
             return RedirectToAction("Index");
