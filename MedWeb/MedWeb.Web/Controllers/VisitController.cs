@@ -84,7 +84,7 @@ namespace MedWeb.Web.Controllers
             return View(viewModel);
         }
 
-        private AddOrEditRegisteredVisitViewModel GetAddRegisteredViewModel()
+        private AddOrEditRegisteredVisitViewModel GetAddOrEditRegisteredViewModel()
         {
             List<SelectListItem> doctorsList = new List<SelectListItem>();
             List<SelectListItem> patientList = new List<SelectListItem>();
@@ -127,7 +127,7 @@ namespace MedWeb.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AddVisit()
         {
-            return View(GetAddRegisteredViewModel());
+            return View(GetAddOrEditRegisteredViewModel());
         }
 
         [HttpPost]
@@ -148,7 +148,7 @@ namespace MedWeb.Web.Controllers
                 errorMessage = "Ilość wizyt dla bieżącego doktora została przekroczona w dniu " + registeredVisit.DateTime.ToShortDateString();
                 ViewBag.ErrorMessage = errorMessage;
 
-                return View(GetAddRegisteredViewModel());
+                return View(GetAddOrEditRegisteredViewModel());
             }
 
             if (_registeredVisitRepository.CheckIfTimeOfVisitIsAllowed(registeredVisit.DateTime, visitLength))
@@ -156,7 +156,7 @@ namespace MedWeb.Web.Controllers
                 errorMessage = "Długość wizyty trwa: " + visitLength + " minut zatem nie możesz zapisać się na wybraną godzinę";
                 ViewBag.ErrorMessage = errorMessage;
 
-                return View(GetAddRegisteredViewModel());
+                return View(GetAddOrEditRegisteredViewModel());
             }
 
             if (_registeredVisitRepository.CheckIfVisitIsOnWeekend(registeredVisit.DateTime))
@@ -164,7 +164,7 @@ namespace MedWeb.Web.Controllers
                 errorMessage = "Nie można umówić wizyt na weekend";
                 ViewBag.ErrorMessage = errorMessage;
 
-                return View(GetAddRegisteredViewModel());
+                return View(GetAddOrEditRegisteredViewModel());
             }
 
             if (_registeredVisitRepository.CheckIfDoctorIsFreeInCurrentDate(registeredVisit.DoctorId, registeredVisit.DateTime))
@@ -172,7 +172,7 @@ namespace MedWeb.Web.Controllers
                 errorMessage = "Wybrany lekarz ma już umówioną wizytę na tą porę";
                 ViewBag.ErrorMessage = errorMessage;
 
-                return View(GetAddRegisteredViewModel());
+                return View(GetAddOrEditRegisteredViewModel());
             }
 
             if (_registeredVisitRepository.CheckIfVisitIsOutdated(registeredVisit.DateTime))
@@ -180,7 +180,7 @@ namespace MedWeb.Web.Controllers
                 errorMessage = "Data i czas wizyty nie może być starsza od bieżącej";
                 ViewBag.ErrorMessage = errorMessage;
 
-                return View(GetAddRegisteredViewModel());
+                return View(GetAddOrEditRegisteredViewModel());
             }
 
             _registeredVisitRepository.AddVisit(registeredVisit);
@@ -190,14 +190,15 @@ namespace MedWeb.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public ActionResult EditVisit(RegisteredVisit updatedVisit)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditVisit(AddOrEditRegisteredVisitViewModel viewModel)
         {
-            RegisteredVisit registeredVisit = new RegisteredVisit
+            RegisteredVisit updatedVisit = new RegisteredVisit
             {
-                DoctorId = updatedVisit.Id,
-                PatientId = updatedVisit.Id,
-                DateTime = updatedVisit.DateTime,
-                Complaint = updatedVisit.Complaint
+                DoctorId = viewModel.SelectedDoctorId,
+                PatientId = viewModel.SelectedPatientId,
+                DateTime = viewModel.DateTime,
+                Complaint = viewModel.Complaint
             };
 
             _registeredVisitRepository.UpdateVisit(updatedVisit);
@@ -207,21 +208,24 @@ namespace MedWeb.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        public ActionResult EditVisit(int visitId)
+        public ActionResult EditVisit(int visitId, AddOrEditRegisteredVisitViewModel editModel)
         {
             RegisteredVisit currentVisit = _registeredVisitRepository.DetailsOfVisit(visitId);
-            RegisteredVisitViewModel viewModel = new RegisteredVisitViewModel
+            AddOrEditRegisteredVisitViewModel viewModel = new AddOrEditRegisteredVisitViewModel
             {
                 Id = currentVisit.Id,
                 Complaint = currentVisit.Complaint,
                 DateTime = currentVisit.DateTime,
                 Doctor = currentVisit.Doctor,
-                Patient = currentVisit.Patient
+                Patient = currentVisit.Patient,
+                DoctorList = editModel.DoctorList,
+                PatientList = editModel.PatientList,
+                SelectedDoctorId = editModel.SelectedDoctorId,
+                SelectedPatientId = editModel.SelectedPatientId
             };
 
             return View(viewModel);
         }
-
 
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteVisit(int visitId)

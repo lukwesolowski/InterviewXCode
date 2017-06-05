@@ -1,4 +1,4 @@
-﻿@model MedWeb.Web.Models.RegisteredVisitViewModel
+﻿@model MedWeb.Web.Models.AddOrEditRegisteredVisitViewModel
 
 <h2>Narzędzie do edycji wizyt w systemie</h2>
 @using (Html.BeginForm("EditVisit", "Visit", FormMethod.Post))
@@ -22,6 +22,42 @@
     </div>
 
     <a href="@Url.Action("Details", new { visitId = Model.Id })" class="btn btn-primary">Szczegóły edytowanej wizyty</a>
+
+    <div class="form-group">
+        @Html.Label("Doktorzy", new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.DropDownListFor(x => x.SelectedDoctorId, Model.DoctorList, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.Label("Pacjenci", new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.DropDownListFor(x => x.SelectedPatientId, Model.PatientList, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.DateTime, new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(x => x.DateTime, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Complaint, new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(x => x.Complaint, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <br />
 
     <button type="submit" class="btn btn-success">Edytuj wizytę</button>
 }
