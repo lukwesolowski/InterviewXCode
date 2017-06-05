@@ -2,28 +2,46 @@
 
 <h2>Szczegoły wizyty</h2>
 
-    <h3>Wizyta:</h3>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Wizyta</h3>
+    </div>
+    <div class="panel-body">
+        Data wizyty:
+        <div class="panel-footer">@Model.DateTime.ToString("MM/dd/yyyy hh:mm tt")</div>
+        Dolegliwość pacjenta:
+        <div class="panel-footer">@Model.Complaint</div>
+    </div>
+</div>
 
-        <ul>
-            <li>Data wizyty: @Model.DateTime</li>
-            <li>Dolegliwość pacjenta: @Model.Complaint</li>
-        </ul>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Pacjent</h3>
+    </div>
+    <div class="panel-body">
+        Imię i nazwisko:
+        <div class="panel-footer">@Model.Patient.FirstName @Model.Patient.LastName</div>
+        Numer pesel:
+        <div class="panel-footer">@Model.Patient.Pesel</div>
+        Data urodzin:
+        <div class="panel-footer">@Model.Patient.BirthDate.ToShortDateString()</div>
+        Wiek pacjenta:
+        <div class="panel-footer">@(DateTime.Now.Year - @Model.Patient.BirthDate.Year) lat</div>
+        Miejsce zamieszkania:
+        <div class="panel-footer">@Model.Patient.City @Model.Patient.Street @Model.Patient.HouseNumber</div>
+        Kod pocztowy:
+        <div class="panel-footer">@Model.Patient.ZipCode</div>
+    </div>
+</div>
 
-    <h3>Pacjent:</h3>
-
-        <ul>
-            <li>@Model.Patient.FirstName</li>
-            <li>@Model.Patient.LastName</li>
-            <li>@Model.Patient.Pesel</li>
-            <li>@Model.Patient.BirthDate</li>
-            <li>@Model.Patient.City</li>
-            <li>@Model.Patient.Street @Model.Patient.HouseNumber @Model.Patient.ZipCode</li>
-        </ul>
-
-    <h3>Lekarz:</h3>
-
-    <ul>
-        <li>@Model.Doctor.FirstName</li>
-        <li>@Model.Doctor.LastName</li>
-        <li>@Model.Doctor.Specialization.Name</li>
-    </ul>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lekarz</h3>
+    </div>
+    <div class="panel-body">
+        Imię i nazwisko:
+        <div class="panel-footer">@Model.Doctor.FirstName @Model.Doctor.LastName</div>
+        Specjalizacja lekarza:
+        <div class="panel-footer">@Model.Doctor.Specialization.Name</div>
+    </div>
+</div>
