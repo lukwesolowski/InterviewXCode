@@ -24,7 +24,7 @@ namespace MedWeb.Web.Models
         public string Complaint { get; set; }
     }
 
-    public class AddRegisteredVisitViewModel : RegisteredVisitViewModel
+    public class AddorEditRegisteredVisitViewModel : RegisteredVisitViewModel
     {
         public List<SelectListItem> DoctorList { get; set; }
         public List<SelectListItem> PatientList { get; set; }

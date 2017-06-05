@@ -84,7 +84,7 @@ namespace MedWeb.Web.Controllers
             return View(viewModel);
         }
 
-        private AddRegisteredVisitViewModel GetAddRegisteredViewModel()
+        private AddorEditRegisteredVisitViewModel GetAddRegisteredViewModel()
         {
             List<SelectListItem> doctorsList = new List<SelectListItem>();
             List<SelectListItem> patientList = new List<SelectListItem>();
@@ -113,7 +113,7 @@ namespace MedWeb.Web.Controllers
                 patientList.Add(listItem);
             });
 
-            var viewModel = new AddRegisteredVisitViewModel
+            var viewModel = new AddorEditRegisteredVisitViewModel
             {
                 PatientList = patientList,
                 DoctorList = doctorsList,
@@ -133,7 +133,7 @@ namespace MedWeb.Web.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddVisit(AddRegisteredVisitViewModel viewModel)
+        public ActionResult AddVisit(AddorEditRegisteredVisitViewModel viewModel)
         {
             RegisteredVisit registeredVisit = new RegisteredVisit
             {
@@ -143,7 +143,7 @@ namespace MedWeb.Web.Controllers
                 Complaint = viewModel.Complaint
             };
 
-            if(_registeredVisitRepository.NumberVisitToDoctorByDay(registeredVisit.DoctorId, registeredVisit.DateTime) >= MaxVisitPerDay)
+            if (_registeredVisitRepository.NumberVisitToDoctorByDay(registeredVisit.DoctorId, registeredVisit.DateTime) >= MaxVisitPerDay)
             {
                 errorMessage = "Ilość wizyt dla bieżącego doktora została przekroczona w dniu " + registeredVisit.DateTime.ToShortDateString();
                 ViewBag.ErrorMessage = errorMessage;
@@ -159,7 +159,7 @@ namespace MedWeb.Web.Controllers
                 return View(GetAddRegisteredViewModel());
             }
 
-            if(_registeredVisitRepository.CheckIfVisitIsOnWeekend(registeredVisit.DateTime))
+            if (_registeredVisitRepository.CheckIfVisitIsOnWeekend(registeredVisit.DateTime))
             {
                 errorMessage = "Nie można umówić wizyt na weekend";
                 ViewBag.ErrorMessage = errorMessage;
@@ -167,7 +167,7 @@ namespace MedWeb.Web.Controllers
                 return View(GetAddRegisteredViewModel());
             }
 
-            if(_registeredVisitRepository.CheckIfDoctorIsFreeInCurrentDate(registeredVisit.DoctorId, registeredVisit.DateTime))
+            if (_registeredVisitRepository.CheckIfDoctorIsFreeInCurrentDate(registeredVisit.DoctorId, registeredVisit.DateTime))
             {
                 errorMessage = "Wybrany lekarz ma już umówioną wizytę na tą porę";
                 ViewBag.ErrorMessage = errorMessage;
@@ -175,7 +175,7 @@ namespace MedWeb.Web.Controllers
                 return View(GetAddRegisteredViewModel());
             }
 
-            if(_registeredVisitRepository.CheckIfVisitIsOutdated(registeredVisit.DateTime))
+            if (_registeredVisitRepository.CheckIfVisitIsOutdated(registeredVisit.DateTime))
             {
                 errorMessage = "Data i czas wizyty nie może być starsza od bieżącej";
                 ViewBag.ErrorMessage = errorMessage;
@@ -186,29 +186,6 @@ namespace MedWeb.Web.Controllers
             _registeredVisitRepository.AddVisit(registeredVisit);
 
             return RedirectToAction("Index");
-        }
-
-        [Authorize(Roles = "Administrator")]
-        public ActionResult EditVisit(int visitId)
-        {
-            List<RegisteredVisit> visitsFromDb = _registeredVisitRepository.GetAllRegisteredVisits();
-            var viewModel = new List<RegisteredVisitViewModel>();
-
-            visitsFromDb.ForEach(x =>
-            {
-                RegisteredVisitViewModel visit = new RegisteredVisitViewModel
-                {
-                    Id = x.Id,
-                    Complaint = x.Complaint,
-                    DateTime = x.DateTime,
-                    Doctor = x.Doctor,
-                    Patient = x.Patient
-                };
-
-                viewModel.Add(visit);
-            });
-
-            return View(viewModel);
         }
 
         [Authorize(Roles = "Administrator")]

@@ -2,6 +2,7 @@
 using MedWeb.DA.Tables;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -127,6 +128,18 @@ namespace MedWeb.DA.Repositories
         public bool CheckIfVisitIsOutdated(DateTime datetime)
         {
             return datetime <= DateTime.Now ? true : false;
+        }
+
+        public void UpdateVisit(RegisteredVisit visit)
+        {
+            var modifyVisit = _dbContext
+                .RegisteredVisit
+                .Select(x => visit)
+                .Where(x => x.Id == visit.Id)
+                .FirstOrDefault();
+
+            _dbContext.Entry(modifyVisit).State = EntityState.Modified;
+            _dbContext.SaveChanges();
         }
 
         public bool SetVisitDateTime(int visitId, DateTime date, TimeSpan time)
