@@ -24,7 +24,6 @@ namespace MedWeb.Web.Models
             var currentPage = page != null ? (int)page : 1;
             var startPage = 1;
             var endPage = numOfPages;
-            
 
             NumOfItems = numOfItems;
             CurrentPage = currentPage;

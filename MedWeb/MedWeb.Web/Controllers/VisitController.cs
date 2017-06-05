@@ -80,7 +80,7 @@ namespace MedWeb.Web.Controllers
                 Doctor = currentVisit.Doctor,
                 Patient = currentVisit.Patient
             };
-           
+
             return View(viewModel);
         }
 

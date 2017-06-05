@@ -23,15 +23,8 @@ namespace MedWeb.Web.Controllers
 
         public ActionResult About()
         {
-            string countOfPatient = _patientRepository.GetAllPatients().Count.ToString();
-            ViewBag.Message = "Liczba pacjentow " + countOfPatient;
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            string applicationInfo = "Aplikacja rekrutacyjna XCode";
+            ViewBag.Message = applicationInfo;
 
             return View();
         }

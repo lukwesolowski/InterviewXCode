@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace MedWeb.DA.Repositories
 {
@@ -104,7 +103,7 @@ namespace MedWeb.DA.Repositories
         {
             string currentDay = datetime.DayOfWeek.ToString();
 
-            return currentDay.Contains("Saturday") || currentDay.Contains("Sunday"); 
+            return currentDay.Contains("Saturday") || currentDay.Contains("Sunday");
         }
 
         public bool CheckIfDoctorIsFreeInCurrentDate(int doctorId, DateTime datetime)
@@ -122,7 +121,7 @@ namespace MedWeb.DA.Repositories
                         numOfVisits++;
                 });
 
-            return numOfVisits == maxNumOfVisit; 
+            return numOfVisits == maxNumOfVisit;
         }
 
         public bool CheckIfVisitIsOutdated(DateTime datetime)
