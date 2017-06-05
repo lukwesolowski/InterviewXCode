@@ -12,19 +12,34 @@
         </div>
     </div>
 
-        <div class="form-group">
-            @Html.Label("Pacjenci", new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.DropDownListFor(x => x.SelectedPatientId, Model.PatientList, new { @class = "form-control" })
-            </div>
-        </div>
+    <br />
 
-        <div class="form-group">
-            @Html.LabelFor(x => x.Complaint, new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(x => x.Complaint, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
+    <div class="form-group">
+        @Html.Label("Pacjenci", new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.DropDownListFor(x => x.SelectedPatientId, Model.PatientList, new { @class = "form-control" })
         </div>
+    </div>
 
-        <button type="submit" class="btn btn-success">Dodaj wizytę</button>
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.DateTime, new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(x => x.DateTime, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Complaint, new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(x => x.Complaint, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success">Dodaj wizytę</button>
 }

@@ -17,6 +17,7 @@ namespace MedWeb.Web.Models
         public Patient Patient { get; set; }
 
         [Display(Name = "Data wizyty")]
+        [DataType(DataType.DateTime)]
         public DateTime DateTime { get; set; }
 
         [Display(Name = "Dolegliwość")]

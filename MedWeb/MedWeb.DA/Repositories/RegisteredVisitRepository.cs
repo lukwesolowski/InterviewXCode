@@ -61,16 +61,9 @@ namespace MedWeb.DA.Repositories
                 .Count();
         }
 
-        public void AddVisit(int visitId, int patientId, int doctorId)
+        public void AddVisit(RegisteredVisit registerVisit)
         {
-            RegisteredVisit registeredVisit = new RegisteredVisit
-            {
-                Id = visitId,
-                PatientId = patientId,
-                DoctorId = doctorId
-            };
-
-            _dbContext.RegisteredVisit.Add(registeredVisit);
+            _dbContext.RegisteredVisit.Add(registerVisit);
             _dbContext.SaveChanges();
         }
 

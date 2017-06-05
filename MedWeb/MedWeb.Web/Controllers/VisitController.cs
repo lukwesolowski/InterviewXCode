@@ -2,6 +2,7 @@
 using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
 using MedWeb.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -103,18 +104,26 @@ namespace MedWeb.Web.Controllers
             var viewModel = new AddRegisteredVisitViewModel
             {
                 PatientList = patientList,
-                DoctorList = doctorsList
+                DoctorList = doctorsList,
+                DateTime = DateTime.Now
             };
             
             return View(viewModel);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administator")]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddVisit(RegisteredVisitViewModel viewModel)
+        public ActionResult AddVisit(AddRegisteredVisitViewModel viewModel)
         {
-            //TODO: Obsluga validacji + zapis
+            RegisteredVisit registeredVisit = new RegisteredVisit
+            {
+                DoctorId = viewModel.SelectedDoctorId,
+                PatientId = viewModel.SelectedPatientId,
+                DateTime = viewModel.DateTime,
+                Complaint = viewModel.Complaint
+            };
+            _registeredVisitRepository.AddVisit(registeredVisit);
 
             return RedirectToAction("Index");
         }
@@ -142,11 +151,11 @@ namespace MedWeb.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteVisit(int visitId)
         {
-            return View(_registeredVisitRepository.DeleteVisit(visitId));
+            _registeredVisitRepository.DeleteVisit(visitId);
+            return RedirectToAction("Index");
         }
     }
 }

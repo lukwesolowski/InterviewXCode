@@ -18,7 +18,7 @@ namespace MedWeb.DA.Interfaces
 
         int GetCountOfRegisteredVisitsToDoctor(string lastName);
 
-        void AddVisit(int visitId, int patientId, int doctorId);
+        void AddVisit(RegisteredVisit registerVisit);
 
         bool CheckIfVisitIsOutdated(int visitId);
 
