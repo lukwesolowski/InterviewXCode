@@ -85,19 +85,40 @@ namespace MedWeb.Web.Controllers
         {
             Patient patient = new Patient
             {
-                Id = viewModel.Id,
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
                 Pesel = viewModel.Pesel,
                 BirthDate = viewModel.BirthDate,
                 City = viewModel.City,
                 Street = viewModel.Street,
+                HouseNumber = viewModel.HouseNumber,
                 ZipCode = viewModel.ZipCode
             };
 
             _patientRepository.AddPatient(patient);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddPatient()
+        {
+            Patient patient = new Patient();
+            PatientViewModel viewModel = new PatientViewModel
+            {
+                Id = patient.Id,
+                FirstName = patient.FirstName,
+                LastName = patient.LastName,
+                Pesel = patient.Pesel,
+                BirthDate = patient.BirthDate,
+                City = patient.City,
+                Street = patient.Street,
+                HouseNumber = patient.HouseNumber,
+                ZipCode = patient.HouseNumber
+            };
+
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Administrator")]
