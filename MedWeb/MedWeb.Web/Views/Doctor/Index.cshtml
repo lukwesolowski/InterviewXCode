@@ -17,7 +17,6 @@
                         <th>Imię</th>
                         <th>Nazwisko</th>
                         <th>Specjalizacja</th>'
-                        <th>Szczegóły</th>
                         <th>Edycja</th>
                         <th>Usuwanie</th>
                     </tr>
@@ -30,7 +29,6 @@
                             <td>@item.LastName</td>
                             <td>@item.Specialization.Name</td>
                             <td><a href="@Url.Action("Details", new { doctorId = item.Id })" class="btn btn-primary">Wyświetl</a></td>
-                            <td><a href="@Url.Action("EditDoctor", new { doctorId = item.Id })" class="btn btn-primary">Edytuj</a></td>
                             <td><a href="@Url.Action("DeleteDoctor", new {doctorId = item.Id })" class="btn btn-primary">Usuń</a></td>
                         </tr>
                     }

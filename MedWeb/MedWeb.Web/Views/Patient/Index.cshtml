@@ -18,7 +18,6 @@
                         <th>Pesel</th>
                         <th>Miejsce Zamieszkania</th>
                         <th>Szczegóły</th>
-                        <th>Edycja</th>
                         <th>Usuwanie</th>
                     </tr>
                 </thead>
@@ -30,7 +29,6 @@
                             <td>@item.Pesel</td>
                             <td>@item.City <br /> @item.Street @item.HouseNumber</td>
                             <td><a href="@Url.Action("Details", new { patientId = item.Id })" class="btn btn-primary">Wyświetl</a></td>
-                            <td><a href="@Url.Action("EditPatient", new { patientId = item.Id })" class="btn btn-primary">Edytuj</a></td>
                             <td><a href="@Url.Action("DeletePatient", new {patientId = item.Id })" class="btn btn-primary">Usuń</a></td>
                         </tr>
                     }
