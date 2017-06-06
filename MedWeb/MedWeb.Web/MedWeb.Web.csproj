@@ -286,6 +286,7 @@
     <Content Include="Views\Patient\Index.cshtml" />
     <Content Include="Views\Patient\AddPatient.cshtml" />
     <Content Include="Views\Patient\Details.cshtml" />
+    <Content Include="Views\Doctor\AddSpecialization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

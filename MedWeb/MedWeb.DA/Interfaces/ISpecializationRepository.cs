@@ -7,9 +7,9 @@ namespace MedWeb.DA.Interfaces
     {
         List<Specialization> GetAllSpecializations();
 
-        Specialization GetSpeacializationById(int id);
+        Specialization GetSpeacializationByName(string specName);
 
-        void AddSpecialization(Specialization SpecializationModel);
+        void AddSpecializaion(Specialization specialization);
 
         bool ChangeSpecializationName(Specialization SpecializationModel);
 

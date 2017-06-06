@@ -21,23 +21,17 @@ namespace MedWeb.DA.Repositories
                 .ToList();
         }
 
-        public Specialization GetSpeacializationById(int id)
+        public Specialization GetSpeacializationByName(string specName)
         {
             return _dbContext
                 .Specialization
-                .Where(x => x.Id.Equals(id))
+                .Where(x => x.Name.Equals(specName))
                 .FirstOrDefault();
         }
 
-        public void AddSpecialization(Specialization SpecializationModel)
+        public void AddSpecializaion(Specialization specialization)
         {
-            Specialization newSpecialization = new Specialization
-            {
-                Id = SpecializationModel.Id,
-                Name = SpecializationModel.Name
-            };
-
-            _dbContext.Specialization.Add(newSpecialization);
+            _dbContext.Specialization.Add(specialization);
             _dbContext.SaveChanges();
         }
 

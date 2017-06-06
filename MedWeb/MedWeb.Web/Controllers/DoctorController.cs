@@ -2,6 +2,7 @@
 using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
 using MedWeb.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,12 +12,14 @@ namespace MedWeb.Web.Controllers
     public class DoctorController : Controller
     {
         private IDoctorRepository _doctorRepository;
+        private ISpecializationRepository _specializationRepository;
 
         public DoctorController()
         {
             using (ILifetimeScope scope = MvcApplication.DepedencyResolver.BeginLifetimeScope())
             {
                 _doctorRepository = scope.Resolve<IDoctorRepository>();
+                _specializationRepository = scope.Resolve<ISpecializationRepository>();
             }
         }
 
@@ -97,7 +100,7 @@ namespace MedWeb.Web.Controllers
                 Id = doctor.Id,
                 FirstName = doctor.FirstName,
                 LastName = doctor.LastName,
-                Specialization = doctor.Specialization
+                Specialization = _specializationRepository.GetSpeacializationByName(doctor.Specialization.Name)
             };
 
             return View(viewModel);
@@ -107,6 +110,36 @@ namespace MedWeb.Web.Controllers
         public ActionResult DeleteDoctor(int doctorId)
         {
             _doctorRepository.DeleteDoctor(doctorId);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddSpecialization()
+        {
+            Specialization specialization = new Specialization();
+            SpecializationViewModel viewModel = new SpecializationViewModel
+            {
+                Id = specialization.Id,
+                Name = specialization.Name
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddSpecialization(SpecializationViewModel viewModel)
+        {
+            Specialization specialization = new Specialization
+            {
+                Name = viewModel.Name,
+                InsertTime = DateTime.Now
+            };
+
+            _specializationRepository.AddSpecializaion(specialization);
+
             return RedirectToAction("Index");
         }
     }
