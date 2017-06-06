@@ -179,7 +179,7 @@ namespace MedWeb.Web.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
             }
-        
+
             return View(model);
         }
 

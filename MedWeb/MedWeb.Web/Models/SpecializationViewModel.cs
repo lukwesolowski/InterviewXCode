@@ -1,7 +1,6 @@
 ﻿using FluentValidation.Attributes;
 using MedWeb.BO.Validation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MedWeb.Web.Models
