@@ -14,7 +14,6 @@ namespace MedWeb.Web
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Dołącz tutaj usługę poczty e-mail, aby wysłać wiadomość e-mail.
             return Task.FromResult(0);
         }
     }
@@ -23,12 +22,10 @@ namespace MedWeb.Web
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Dołącz tutaj usługę wiadomości SMS, aby wysłać wiadomość SMS.
             return Task.FromResult(0);
         }
     }
 
-    // Skonfiguruj menedżera użytkowników aplikacji używanego w tej aplikacji. Interfejs UserManager jest zdefiniowany w produkcie ASP.NET Identity i jest używany przez aplikację.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -39,14 +36,13 @@ namespace MedWeb.Web
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            // Konfiguruj logikę weryfikacji nazw użytkowników
+
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
 
-            // Konfiguruj logikę weryfikacji haseł
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
@@ -56,13 +52,11 @@ namespace MedWeb.Web
                 RequireUppercase = true,
             };
 
-            // Konfiguruj ustawienia domyślne blokady użytkownika
+ 
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-            // Zarejestruj dostawców uwierzytelniania dwuetapowego. W przypadku tej aplikacji kod weryfikujący użytkownika jest uzyskiwany przez telefon i pocztą e-mail
-            // Możesz zapisać własnego dostawcę i dołączyć go tutaj.
             manager.RegisterTwoFactorProvider("Kod — telefon", new PhoneNumberTokenProvider<ApplicationUser>
             {
                 MessageFormat = "Twój kod zabezpieczający: {0}"
@@ -84,7 +78,6 @@ namespace MedWeb.Web
         }
     }
 
-    // Skonfiguruj menedżera logowania aplikacji używanego w tej aplikacji.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)

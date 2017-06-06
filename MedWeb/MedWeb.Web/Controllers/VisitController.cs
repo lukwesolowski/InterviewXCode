@@ -32,7 +32,6 @@ namespace MedWeb.Web.Controllers
             }
         }
 
-        // GET: Visit
         [HttpGet]
         public ActionResult Index(int? page = 0)
         {

@@ -10,7 +10,6 @@ namespace MedWeb.Web.App_Start
         {
             var builder = new ContainerBuilder();
 
-            // Rejestracja kontenera
             builder.RegisterType<PatientRepository>().As<IPatientRepository>();
             builder.RegisterType<DoctorRepository>().As<IDoctorRepository>();
             builder.RegisterType<RegisteredVisitRepository>().As<IRegisteredVisitRepository>();

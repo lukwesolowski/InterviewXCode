@@ -1,7 +1,5 @@
 namespace MedWeb.DA.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Data.Entity.Migrations;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MedWeb.DA.ApplicationDbContext>
