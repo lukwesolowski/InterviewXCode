@@ -21,6 +21,7 @@ namespace MedWeb.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index(int? page = 0)
         {
             List<Doctor> doctorsFromDb = _doctorRepository.GetAllDoctors();

@@ -21,6 +21,7 @@ namespace MedWeb.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index(int? page = 0)
         {
             List<Patient> patientsFromDb = _patientRepository.GetAllPatients();
@@ -60,26 +61,6 @@ namespace MedWeb.Web.Controllers
 
         [HttpGet]
         public ActionResult Details(int patientId)
-        {
-            Patient currentPatient = _patientRepository.DetailsOfPatient(patientId);
-            PatientViewModel viewModel = new PatientViewModel
-            {
-                Id = currentPatient.Id,
-                FirstName = currentPatient.FirstName,
-                LastName = currentPatient.LastName,
-                Pesel = currentPatient.Pesel,
-                BirthDate = currentPatient.BirthDate,
-                City = currentPatient.City,
-                Street = currentPatient.Street,
-                ZipCode = currentPatient.ZipCode
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult AddPatient(int patientId)
         {
             Patient currentPatient = _patientRepository.DetailsOfPatient(patientId);
             PatientViewModel viewModel = new PatientViewModel
