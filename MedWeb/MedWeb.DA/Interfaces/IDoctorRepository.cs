@@ -13,7 +13,9 @@ namespace MedWeb.DA.Interfaces
 
         List<Doctor> GetDoctorsBySpecialization(string specName);
 
-        void AddDoctor(Doctor DoctorModel);
+        Doctor DetailsOfDoctor(int doctorId);
+
+        void AddDoctor(Doctor doctor);
 
         bool UpdateDoctor(int doctorId, Doctor doctor);
 

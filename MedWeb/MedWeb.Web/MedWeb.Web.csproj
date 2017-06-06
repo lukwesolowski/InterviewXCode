@@ -280,6 +280,8 @@
     <Content Include="Views\Visit\EditVisit.cshtml" />
     <Content Include="Views\Visit\Details.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\Doctor\Details.cshtml" />
+    <Content Include="Views\Doctor\AddDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
