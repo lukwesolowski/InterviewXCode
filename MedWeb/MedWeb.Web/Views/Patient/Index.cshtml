@@ -1,6 +1,79 @@
-﻿@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model MedWeb.Web.Models.PagingPatientViewModel
+    
+@if (User.IsInRole("Administrator"))
+{
+    <div class="container">
+        <h2>Pacjenci w systemie: </h2>
 
-<h2>Index</h2>
+        @if (Model.PatientViewModel.Count == 0)
+        {
+            <p>Brak pacjentów w systemie.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Imię i Nazwisko</th>
+                        <th>Pesel</th>
+                        <th>Miejsce Zamieszkania</th>
+                        <th>Szczegóły</th>
+                        <th>Edycja</th>
+                        <th>Usuwanie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PagingInfoModel.ItemsOfPatients)
+                    {
+                        <tr>
+                            <td>@item.FirstName <br /> @item.LastName</td>
+                            <td>@item.Pesel</td>
+                            <td>@item.City <br /> @item.Street @item.HouseNumber</td>
+                            <td><a href="@Url.Action("Details", new { patientId = item.Id })" class="btn btn-primary">Wyświetl</a></td>
+                            <td><a href="@Url.Action("EditPatient", new { patientId = item.Id })" class="btn btn-primary">Edytuj</a></td>
+                            <td><a href="@Url.Action("DeletePatient", new {patientId = item.Id })" class="btn btn-primary">Usuń</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            if (Model.PagingInfoModel.PageInfo.EndPage > 1)
+            {
+                <ul class="pagination">
+                    @if (Model.PagingInfoModel.PageInfo.CurrentPage > 1)
+                    {
+                        <li>
+                            <a href="~/Patient">Pierwsza</a>
+                        </li>
+                        <li>
+                            <a href="~/Patient?page=@(Model.PagingInfoModel.PageInfo.CurrentPage - 1)">Poprzednia</a>
+                        </li>
+                    }
+
+                    @for (var page = Model.PagingInfoModel.PageInfo.StartPage; page <= Model.PagingInfoModel.PageInfo.EndPage; page++)
+                    {
+                        <li class="@(page == Model.PagingInfoModel.PageInfo.CurrentPage ? "aktywna" : "")">
+                            <a href="~/Patient?page=@page">@page</a>
+                        </li>}
+
+                    @if (Model.PagingInfoModel.PageInfo.CurrentPage < Model.PagingInfoModel.PageInfo.NumOfPages)
+                    {
+                        <li>
+                            <a href="~/Patient?page=@(Model.PagingInfoModel.PageInfo.CurrentPage + 1)">Następna</a>
+                        </li>
+                        <li>
+                            <a href="~/Patient?page=@(Model.PagingInfoModel.PageInfo.NumOfPages)">Ostatnia</a>
+                        </li>
+                    }
+                </ul>
+            }
+
+        }
+
+        @if (true)
+        {
+            <p>Czy dodać pacjenta?</p>
+            <a href="@Url.Action("AddPatient")" class="btn btn-primary">Dodaj pacjenta</a>
+        }
+    </div>
+}

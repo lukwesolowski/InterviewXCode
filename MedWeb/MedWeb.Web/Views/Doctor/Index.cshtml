@@ -16,7 +16,10 @@
                     <tr>
                         <th>Imię</th>
                         <th>Nazwisko</th>
-                        <th>Specjalizacja</th>
+                        <th>Specjalizacja</th>'
+                        <th>Szczegóły</th>
+                        <th>Edycja</th>
+                        <th>Usuwanie</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,12 +29,9 @@
                             <td>@item.FirstName</td>
                             <td>@item.LastName</td>
                             <td>@item.Specialization.Name</td>
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <td><a href="@Url.Action("Details", new { doctorId = item.Id })" class="btn btn-primary">Wyświetl</a></td>
-                                <td><a href="@Url.Action("EditDoctor", new { doctorId = item.Id })" class="btn btn-primary">Edytuj</a></td>
-                                <td><a href="@Url.Action("DeleteDOctor", new {doctorId = item.Id })" class="btn btn-primary">Usuń</a></td>
-                            }
+                            <td><a href="@Url.Action("Details", new { doctorId = item.Id })" class="btn btn-primary">Wyświetl</a></td>
+                            <td><a href="@Url.Action("EditDoctor", new { doctorId = item.Id })" class="btn btn-primary">Edytuj</a></td>
+                            <td><a href="@Url.Action("DeleteDoctor", new {doctorId = item.Id })" class="btn btn-primary">Usuń</a></td>      
                         </tr>
                     }
                 </tbody>

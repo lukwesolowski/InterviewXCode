@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace MedWeb.Web.Controllers
 {
-    public class PatientController
+    public class PatientController : Controller
     {
         private IPatientRepository _patientRepository;
 
