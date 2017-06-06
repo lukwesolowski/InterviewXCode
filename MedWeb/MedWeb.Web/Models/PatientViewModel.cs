@@ -17,7 +17,7 @@ namespace MedWeb.Web.Models
         public string LastName { get; set; }
 
         [Display(Name = "Numer pesel")]
-        public int Pesel { get; set; }
+        public string Pesel { get; set; }
 
         [Display(Name = "Data urodziń")]
         public DateTime BirthDate { get; set; }

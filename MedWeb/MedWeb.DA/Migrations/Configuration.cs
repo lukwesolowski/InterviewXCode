@@ -28,18 +28,18 @@ namespace MedWeb.DA.Migrations
             //    new Doctor { FirstName = "Eugeniusz", LastName = "Poljanowicz", SpecializationId = secondSpecialization.Id }
             //    );
 
-            var store = new UserStore<ApplicationUser>(context);
-            UserManager<ApplicationUser> um = new UserManager<ApplicationUser>(store);
-            ApplicationUser user = new ApplicationUser
-            {
-                Email = "admin@gmail.com",
-                PasswordHash = um.PasswordHasher.HashPassword("!QAZ2wsx"),
-                EmailConfirmed = true,
-                UserName = "admin@gmail.com"
-            };
+            //var store = new UserStore<ApplicationUser>(context);
+            //UserManager<ApplicationUser> um = new UserManager<ApplicationUser>(store);
+            //ApplicationUser user = new ApplicationUser
+            //{
+            //    Email = "admin@gmail.com",
+            //    PasswordHash = um.PasswordHasher.HashPassword("!QAZ2wsx"),
+            //    EmailConfirmed = true,
+            //    UserName = "admin@gmail.com"
+            //};
 
-            um.Create(user);
-            um.AddToRole(user.Id, "Administrator");
+            //um.Create(user);
+            //um.AddToRole(user.Id, "Administrator");
 
             context.SaveChanges();
         }
