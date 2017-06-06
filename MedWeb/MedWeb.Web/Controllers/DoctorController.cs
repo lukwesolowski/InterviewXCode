@@ -82,7 +82,7 @@ namespace MedWeb.Web.Controllers
             {
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
-                Specialization = viewModel.Specialization
+                SpecializationId = viewModel.SelectedSpecializationId
             };
 
             _doctorRepository.AddDoctor(doctor);
@@ -94,14 +94,17 @@ namespace MedWeb.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AddDoctor()
         {
-            Doctor doctor = new Doctor();
-            DoctorViewModel viewModel = new DoctorViewModel
-            {
-                Id = doctor.Id,
-                FirstName = doctor.FirstName,
-                LastName = doctor.LastName,
-                Specialization = _specializationRepository.GetSpeacializationByName(doctor.Specialization.Name)
-            };
+            DoctorViewModel viewModel = new DoctorViewModel();
+            List<SelectListItem> specializationList = new List<SelectListItem>();
+
+            _specializationRepository.GetAllSpecializations()
+                .ForEach(x =>
+                {
+                    SelectListItem listItem = new SelectListItem { Value = x.Id.ToString(), Text = x.Name };
+                    specializationList.Add(listItem);
+                });
+
+            viewModel.SpecializationList = specializationList;
 
             return View(viewModel);
         }

@@ -1,7 +1,9 @@
 ﻿using FluentValidation.Attributes;
 using MedWeb.BO.Validation;
 using MedWeb.DA.Tables;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MedWeb.Web.Models
 {
@@ -17,5 +19,8 @@ namespace MedWeb.Web.Models
         public string LastName { get; set; }
 
         public Specialization Specialization { get; set; }
+
+        public int SelectedSpecializationId { get; set; }
+        public List<SelectListItem> SpecializationList { get; set; }
     }
 }

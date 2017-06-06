@@ -4,6 +4,7 @@
 @using (Html.BeginForm("EditVisit", "Visit", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
 
     <div class="panel panel-primary">
         <div class="panel-heading">

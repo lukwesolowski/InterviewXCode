@@ -72,7 +72,8 @@ namespace MedWeb.Web.Controllers
                 BirthDate = currentPatient.BirthDate,
                 City = currentPatient.City,
                 Street = currentPatient.Street,
-                ZipCode = currentPatient.ZipCode
+                ZipCode = currentPatient.ZipCode,
+                HouseNumber = currentPatient.HouseNumber
             };
 
             return View(viewModel);

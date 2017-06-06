@@ -54,21 +54,9 @@ namespace MedWeb.DA.Repositories
                  .FirstOrDefault();
         }
 
-        public void AddPatient(Patient PatientModel)
+        public void AddPatient(Patient patientModel)
         {
-            Patient newPatient = new Patient
-            {
-                Id = PatientModel.Id,
-                FirstName = PatientModel.FirstName,
-                LastName = PatientModel.LastName,
-                BirthDate = PatientModel.BirthDate,
-                City = PatientModel.City,
-                Street = PatientModel.Street,
-                HouseNumber = PatientModel.HouseNumber,
-                ZipCode = PatientModel.ZipCode
-            };
-
-            _dbContext.Patient.Add(newPatient);
+            _dbContext.Patient.Add(patientModel);
             _dbContext.SaveChanges();
         }
 
@@ -104,7 +92,7 @@ namespace MedWeb.DA.Repositories
         {
             try
             {
-                _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(patientId));
+                _dbContext.Patient.Remove(_dbContext.Patient.Find(patientId));
                 _dbContext.SaveChanges();
 
                 return true;

@@ -131,7 +131,13 @@ namespace MedWeb.DA.Repositories
 
         public void UpdateVisit(RegisteredVisit visit)
         {
-            _dbContext.Entry(visit).State = EntityState.Modified;
+            RegisteredVisit registerVisitFromDb = _dbContext.RegisteredVisit.Find(visit.Id);
+
+            registerVisitFromDb.DoctorId = visit.DoctorId;
+            registerVisitFromDb.PatientId = visit.PatientId;
+            registerVisitFromDb.Complaint = visit.Complaint;
+            registerVisitFromDb.DateTime = visit.DateTime;
+
             _dbContext.SaveChanges();
         }
 

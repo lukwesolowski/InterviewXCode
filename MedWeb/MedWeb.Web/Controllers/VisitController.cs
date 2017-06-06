@@ -203,6 +203,7 @@ namespace MedWeb.Web.Controllers
         {
             RegisteredVisit updatedVisit = new RegisteredVisit
             {
+                Id = viewModel.Id,
                 DoctorId = viewModel.SelectedDoctorId,
                 PatientId = viewModel.SelectedPatientId,
                 DateTime = viewModel.DateTime,
@@ -216,20 +217,21 @@ namespace MedWeb.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        public ActionResult EditVisit(int visitId, AddOrEditRegisteredVisitViewModel editModel)
+        public ActionResult EditVisit(int visitId)
         {
             RegisteredVisit currentVisit = _registeredVisitRepository.DetailsOfVisit(visitId);
+            AddOrEditRegisteredVisitViewModel viewModelWithDDL = GetAddOrEditRegisteredViewModel();
             AddOrEditRegisteredVisitViewModel viewModel = new AddOrEditRegisteredVisitViewModel
             {
-                Id = currentVisit.Id,
+                Id = visitId,
                 Complaint = currentVisit.Complaint,
                 DateTime = currentVisit.DateTime,
                 Doctor = currentVisit.Doctor,
                 Patient = currentVisit.Patient,
-                DoctorList = editModel.DoctorList,
-                PatientList = editModel.PatientList,
-                SelectedDoctorId = editModel.SelectedDoctorId,
-                SelectedPatientId = editModel.SelectedPatientId
+                DoctorList = viewModelWithDDL.DoctorList,
+                PatientList = viewModelWithDDL.PatientList,
+                SelectedDoctorId = currentVisit.DoctorId,
+                SelectedPatientId = currentVisit.PatientId
             };
 
             return View(viewModel);

@@ -89,7 +89,7 @@ namespace MedWeb.DA.Repositories
         {
             try
             {
-                _dbContext.RegisteredVisit.Remove(_dbContext.RegisteredVisit.Find(doctorId));
+                _dbContext.Doctor.Remove(_dbContext.Doctor.Find(doctorId));
                 _dbContext.SaveChanges();
 
                 return true;
