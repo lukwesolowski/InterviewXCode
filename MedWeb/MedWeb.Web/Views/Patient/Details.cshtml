@@ -1,6 +1,23 @@
-﻿@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model MedWeb.Web.Models.PatientViewModel
 
-<h2>Details</h2>
+<h2>Wybrano następującego pacjenta</h2>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Pacjent</h3>
+    </div>
+    <div class="panel-body">
+        Imię i nazwisko:
+        <div class="panel-footer">@Model.FirstName @Model.LastName</div>
+        Numer pesel:
+        <div class="panel-footer">@Model.Pesel</div>
+        Data urodzin:
+        <div class="panel-footer">@Model.BirthDate.ToShortDateString()</div>
+        Wiek pacjenta:
+        <div class="panel-footer">@(DateTime.Now.Year - @Model.BirthDate.Year) lat</div>
+        Miejsce zamieszkania:
+        <div class="panel-footer">@Model.City @Model.Street @Model.HouseNumber</div>
+        Kod pocztowy:
+        <div class="panel-footer">@Model.ZipCode</div>
+    </div>
+</div>

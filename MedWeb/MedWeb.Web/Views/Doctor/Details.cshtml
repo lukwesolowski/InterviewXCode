@@ -1,6 +1,15 @@
-﻿@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model MedWeb.Web.Models.DoctorViewModel
 
-<h2>Details</h2>
+<h2>Wybrano następującego lekarza</h2>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lekarz</h3>
+    </div>
+    <div class="panel-body">
+        Imię i nazwisko:
+        <div class="panel-footer">@Model.FirstName @Model.LastName</div>
+        Specjalizacja lekarza:
+        <div class="panel-footer">@Model.Specialization.Name</div>
+    </div>
+</div>
