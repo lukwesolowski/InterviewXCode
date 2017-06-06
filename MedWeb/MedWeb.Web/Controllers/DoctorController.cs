@@ -70,22 +70,6 @@ namespace MedWeb.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult AddDoctor(int doctorId)
-        {
-            Doctor currentDoctor = _doctorRepository.DetailsOfDoctor(doctorId);
-            DoctorViewModel viewModel = new DoctorViewModel
-            {
-                Id = currentDoctor.Id,
-                FirstName = currentDoctor.FirstName,
-                LastName = currentDoctor.LastName,
-                Specialization = currentDoctor.Specialization
-            };
-
-            return View(viewModel);
-        }
-
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
@@ -93,7 +77,6 @@ namespace MedWeb.Web.Controllers
         {
             Doctor doctor = new Doctor
             {
-                Id = viewModel.Id,
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
                 Specialization = viewModel.Specialization
@@ -102,6 +85,22 @@ namespace MedWeb.Web.Controllers
             _doctorRepository.AddDoctor(doctor);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddDoctor()
+        {
+            Doctor doctor = new Doctor();
+            DoctorViewModel viewModel = new DoctorViewModel
+            {
+                Id = doctor.Id,
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+                Specialization = doctor.Specialization
+            };
+
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Administrator")]
