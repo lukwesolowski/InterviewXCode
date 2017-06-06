@@ -2,10 +2,8 @@
 using MedWeb.DA.Interfaces;
 using MedWeb.DA.Tables;
 using MedWeb.Web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MedWeb.Web.Controllers
@@ -62,6 +60,7 @@ namespace MedWeb.Web.Controllers
             Doctor currentDoctor = _doctorRepository.DetailsOfDoctor(doctorId);
             DoctorViewModel viewModel = new DoctorViewModel
             {
+                Id = currentDoctor.Id,
                 FirstName = currentDoctor.FirstName,
                 LastName = currentDoctor.LastName,
                 Specialization = currentDoctor.Specialization,
@@ -88,7 +87,7 @@ namespace MedWeb.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        [ValidateAntiForgeryToken]    ]
+        [ValidateAntiForgeryToken]
         public ActionResult AddDoctor(DoctorViewModel viewModel)
         {
             Doctor doctor = new Doctor

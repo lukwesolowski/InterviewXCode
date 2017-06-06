@@ -45,6 +45,15 @@ namespace MedWeb.DA.Repositories
                 .FirstOrDefault();
         }
 
+        public Patient DetailsOfPatient(int patientId)
+        {
+            return _dbContext
+                 .Patient
+                 .Select(x => x)
+                 .Where(x => x.Id == patientId)
+                 .FirstOrDefault();
+        }
+
         public void AddPatient(Patient PatientModel)
         {
             Patient newPatient = new Patient
